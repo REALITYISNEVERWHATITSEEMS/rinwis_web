@@ -1,22 +1,16 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
 type Project = {
   label: string;
   title: string;
   background: string;
   color: string;
-  accent?: string;
 };
 
 const projects: Project[] = [
   {
     label: "IDENTITY",
     title: "Personal Brand System",
-    background: "linear-gradient(180deg, #d9d9d7 0%, #b7b6b2 100%)",
+    background: "linear-gradient(160deg, #d9d9d7 0%, #b7b6b2 100%)",
     color: "#141311",
-    accent: "#38bdf8",
   },
   {
     label: "WEB",
@@ -27,16 +21,15 @@ const projects: Project[] = [
   {
     label: "PRODUCT",
     title: "Field Notes App",
-    background: "linear-gradient(180deg, #e7e6e2 0%, #cfcdc7 100%)",
-    color: "#1a1a18",
-    accent: "#dc2626",
+    background: "#6a4fc9",
+    color: "#efe8ff",
   },
   {
     label: "OPEN SOURCE",
-    title: "Working in Public — Toolkit",
+    title: "Working in Public",
     background:
-      "linear-gradient(115deg, #ef4444 0%, #f59e0b 35%, #1e1b4b 68%, #f59e0b 100%)",
-    color: "#141311",
+      "linear-gradient(150deg, #f2a341 0%, #e0533a 60%, #6a4fc9 100%)",
+    color: "#1a0f05",
   },
   {
     label: "RESEARCH",
@@ -46,117 +39,68 @@ const projects: Project[] = [
   },
   {
     label: "CASE STUDY",
-    title: "Product Journal, 2024–2026",
+    title: "Product Journal",
     background: "#1d4ed8",
     color: "#dbe4fb",
   },
   {
     label: "COLLAB",
-    title: "Get Together — Community Kit",
-    background: "linear-gradient(90deg, #f59e0b 0%, #ef4444 100%)",
-    color: "#1c1917",
+    title: "Get Together",
+    background: "linear-gradient(150deg, #f5c451 0%, #e0533a 100%)",
+    color: "#241505",
   },
   {
     label: "ENGINEERING",
-    title: "An Elegant Puzzle — Notes",
-    background: "linear-gradient(180deg, #f6f5f2 0%, #d7d4cd 100%)",
+    title: "An Elegant Puzzle",
+    background: "linear-gradient(160deg, #ece9e2 0%, #cbc7bc 100%)",
     color: "#1c1917",
   },
 ];
 
-const LIFT = 8;
-
-function Spine({ project }: { project: Project }) {
+function Cover({ project }: { project: Project }) {
   return (
     <div
-      className="group relative h-16 overflow-hidden rounded-[3px] shadow-[0_10px_18px_-10px_rgba(0,0,0,0.65)] sm:h-[68px]"
+      className="cf-cover flex h-40 w-40 shrink-0 items-center justify-center rounded-[6px] p-4 text-center shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] sm:h-52 sm:w-52"
       style={{ background: project.background, color: project.color }}
     >
-      <span
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.14) 100%)",
-        }}
-      />
-      <span
-        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-20"
-        style={{
-          background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.3) 88%)",
-        }}
-      />
-      {project.accent && (
-        <span
-          className="absolute inset-x-0 top-0 h-[3px]"
-          style={{
-            background: `linear-gradient(90deg, ${project.accent}, transparent 70%)`,
-          }}
-        />
-      )}
-      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/15" />
-      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-black/25" />
+      <span className="text-xs font-bold uppercase leading-snug tracking-wide sm:text-sm">
+        {project.title}
+      </span>
+    </div>
+  );
+}
 
-      <div className="relative grid h-full grid-cols-[1fr_auto_44px] items-center gap-3 px-5 sm:grid-cols-[1fr_auto_56px] sm:px-8">
-        <span className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.15em] opacity-80 sm:text-xs">
-          {project.label}
-        </span>
-        <span className="justify-self-center truncate text-center text-xs font-semibold uppercase tracking-wide sm:text-sm">
-          {project.title}
-        </span>
-        <span className="justify-self-end opacity-50">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <circle cx="9" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
-            <circle cx="15" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
-          </svg>
-        </span>
+function Reflection({ project }: { project: Project }) {
+  return (
+    <div
+      className="cf-reflection h-40 w-40 shrink-0 rounded-[6px]"
+      style={{
+        background: project.background,
+        maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 70%)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 70%)",
+      }}
+    />
+  );
+}
+
+function CoverItem({ project }: { project: Project }) {
+  return (
+    <div className="flex shrink-0 snap-center flex-col items-center px-6 sm:px-8">
+      <Cover project={project} />
+      <Reflection project={project} />
+      <div className="cf-caption mt-6 w-48 text-center">
+        <p className="text-sm font-semibold text-[#f2ece4]">{project.title}</p>
+        <p className="text-xs text-[#f2ece4]/50">{project.label}</p>
       </div>
     </div>
   );
 }
 
-function useScrollTilt(count: number) {
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [progress, setProgress] = useState<number[]>(() => Array(count).fill(0));
-  const frameRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const measure = () => {
-      frameRef.current = null;
-      const vh = window.innerHeight;
-      const next = itemRefs.current.map((el) => {
-        if (!el) return 0;
-        const rect = el.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const raw = (vh * 0.4 - center) / (vh * 0.4);
-        return Math.min(1, Math.max(0, raw));
-      });
-      setProgress(next);
-    };
-
-    const onScroll = () => {
-      if (frameRef.current !== null) return;
-      frameRef.current = requestAnimationFrame(measure);
-    };
-
-    measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-    };
-  }, [count]);
-
-  return { itemRefs, progress };
-}
-
 export default function Home() {
-  const { itemRefs, progress } = useScrollTilt(projects.length);
-
   return (
-    <div className="min-h-screen bg-[#15100d] text-[#f2ece4]">
-      <header className="flex items-center gap-3 px-6 pt-10 sm:px-10">
+    <div className="min-h-screen bg-[#0d0b0a] text-[#f2ece4]">
+      <header className="mx-auto flex max-w-2xl items-center gap-3 px-6 pt-10 sm:px-10">
         <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#f2ece4]/30 font-mono text-[11px]">
           M
         </span>
@@ -166,47 +110,13 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-6 py-16 sm:px-10 sm:py-24">
-        <div className="space-y-9">
-          {projects.map((project, i) => {
-            const p = progress[i] ?? 0;
-            return (
-              <div
-                key={project.title}
-                ref={(el) => {
-                  itemRefs.current[i] = el;
-                }}
-                style={{
-                  perspective: "500px",
-                  transform: `translateY(${-p * LIFT}px)`,
-                }}
-              >
-                {/* top edge — peeks out as the book lifts */}
-                <div
-                  className="h-3 sm:h-3.5"
-                  style={{
-                    background: project.background,
-                    filter: "brightness(1.3)",
-                    opacity: p,
-                    transform: `scaleY(${0.2 + p * 0.8}) rotateX(-72deg)`,
-                    transformOrigin: "bottom",
-                  }}
-                />
-                <Spine project={project} />
-                {/* bottom edge — peeks out as the book lifts */}
-                <div
-                  className="h-3 sm:h-3.5"
-                  style={{
-                    background: project.background,
-                    filter: "brightness(0.55)",
-                    opacity: p,
-                    transform: `scaleY(${0.2 + p * 0.8}) rotateX(72deg)`,
-                    transformOrigin: "top",
-                  }}
-                />
-              </div>
-            );
-          })}
+      <main className="flex flex-col justify-center py-24 sm:py-32">
+        <div className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto">
+          <div className="shrink-0" style={{ width: "42vw" }} />
+          {projects.map((project) => (
+            <CoverItem key={project.title} project={project} />
+          ))}
+          <div className="shrink-0" style={{ width: "42vw" }} />
         </div>
       </main>
     </div>
