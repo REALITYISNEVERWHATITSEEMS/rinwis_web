@@ -1,116 +1,110 @@
 type Project = {
-  label: string;
   title: string;
+  subtitle: string;
   background: string;
-  color: string;
-  accent?: string;
+  accent: string;
 };
 
 const projects: Project[] = [
   {
-    label: "IDENTITY",
     title: "Personal Brand System",
-    background: "linear-gradient(180deg, #d9d9d7 0%, #b7b6b2 100%)",
-    color: "#141311",
-    accent: "#38bdf8",
+    subtitle: "Identity · 2026",
+    background: "linear-gradient(135deg, #e8e6df 0%, #b9b6ac 100%)",
+    accent: "#141311",
   },
   {
-    label: "WEB",
     title: "Studio Website Vol. 1",
-    background: "#1c2a44",
-    color: "#c9d3e6",
+    subtitle: "Web · Next.js",
+    background: "#c23b2f",
+    accent: "#f4d9d3",
   },
   {
-    label: "PRODUCT",
     title: "Field Notes App",
-    background: "linear-gradient(180deg, #e7e6e2 0%, #cfcdc7 100%)",
-    color: "#1a1a18",
-    accent: "#dc2626",
+    subtitle: "Product · iOS",
+    background: "#6a4fc9",
+    accent: "#efe8ff",
   },
   {
-    label: "OPEN SOURCE",
     title: "Working in Public — Toolkit",
-    background:
-      "linear-gradient(115deg, #ef4444 0%, #f59e0b 35%, #1e1b4b 68%, #f59e0b 100%)",
-    color: "#141311",
+    subtitle: "Open Source",
+    background: "linear-gradient(135deg, #f2a341 0%, #d97b2d 100%)",
+    accent: "#2a1a0b",
   },
   {
-    label: "RESEARCH",
     title: "Systems & Field Notes",
+    subtitle: "Research",
     background: "#4b5233",
-    color: "#e9e7d8",
+    accent: "#e9e7d8",
   },
   {
-    label: "CASE STUDY",
     title: "Product Journal, 2024–2026",
+    subtitle: "Case Study",
     background: "#1d4ed8",
-    color: "#dbe4fb",
+    accent: "#dbe4fb",
   },
   {
-    label: "COLLAB",
     title: "Get Together — Community Kit",
-    background: "linear-gradient(90deg, #f59e0b 0%, #ef4444 100%)",
-    color: "#1c1917",
+    subtitle: "Collaboration",
+    background: "linear-gradient(135deg, #f5c451 0%, #e0533a 100%)",
+    accent: "#241505",
   },
   {
-    label: "ENGINEERING",
     title: "An Elegant Puzzle — Notes",
-    background: "linear-gradient(180deg, #f6f5f2 0%, #d7d4cd 100%)",
-    color: "#1c1917",
-  },
-  {
-    label: "ARCHIVE",
-    title: "Sketch & Motion Studies",
-    background: "linear-gradient(135deg, #1e3a8a 0%, #7c3aed 55%, #db2777 100%)",
-    color: "#f5f3ff",
+    subtitle: "Engineering",
+    background: "linear-gradient(135deg, #ece9e2 0%, #cbc7bc 100%)",
+    accent: "#1c1917",
   },
 ];
 
-function Spine({ project }: { project: Project }) {
+function Book({ project }: { project: Project }) {
   return (
-    <div
-      className="group relative h-16 overflow-hidden rounded-[3px] shadow-[0_10px_18px_-10px_rgba(0,0,0,0.65)] transition-transform duration-200 ease-out hover:-translate-y-0.5 sm:h-[68px]"
-      style={{ background: project.background, color: project.color }}
-    >
-      {/* subtle vertical sheen for a rounded, dimensional surface */}
-      <span
-        className="pointer-events-none absolute inset-0"
+    <div className="w-32 shrink-0 sm:w-36" style={{ perspective: "900px" }}>
+      <div
+        className="h-16 rounded-t-[5px] shadow-[0_20px_28px_-14px_rgba(0,0,0,0.75)] sm:h-[74px]"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.14) 100%)",
+          background: project.background,
+          transform: "rotateX(50deg)",
+          transformOrigin: "bottom",
         }}
       />
-      {/* corner-turn shading on the right — the cover just barely wrapping out of view */}
-      <span
-        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-20"
+      <div
+        className="relative h-6 overflow-hidden rounded-b-[5px] sm:h-7"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.3) 88%)",
+          backgroundImage:
+            "repeating-linear-gradient(180deg, #efe9dd 0px, #efe9dd 2px, #ddd5c2 2px, #ddd5c2 4px)",
         }}
-      />
-      {project.accent && (
+      >
         <span
-          className="absolute inset-x-0 top-0 h-[3px]"
-          style={{
-            background: `linear-gradient(90deg, ${project.accent}, transparent 70%)`,
-          }}
+          className="absolute top-1/2 right-1.5 h-3.5 w-3.5 -translate-y-1/2 rounded-[2px] sm:h-4 sm:w-4"
+          style={{ background: project.accent }}
         />
-      )}
-      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/15" />
-      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-black/25" />
+      </div>
+    </div>
+  );
+}
 
-      <div className="relative grid h-full grid-cols-[1fr_auto_44px] items-center gap-3 px-5 sm:grid-cols-[1fr_auto_56px] sm:px-8">
-        <span className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.15em] opacity-80 sm:text-xs">
-          {project.label}
-        </span>
-        <span className="justify-self-center truncate text-center text-xs font-semibold uppercase tracking-wide sm:text-sm">
-          {project.title}
-        </span>
-        <span className="justify-self-end opacity-50 transition-opacity duration-200 group-hover:opacity-90">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <circle cx="9" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
-            <circle cx="15" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
-          </svg>
-        </span>
+function PlayButton() {
+  return (
+    <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#f2ece4]/25 text-[#f2ece4]/70 transition-colors hover:border-[#f2ece4]/50 hover:text-[#f2ece4]">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    </button>
+  );
+}
+
+function Row({ project }: { project: Project }) {
+  return (
+    <div className="flex items-end gap-5">
+      <Book project={project} />
+      <div className="flex flex-1 items-center justify-between gap-3 pb-1">
+        <div className="min-w-0">
+          <p className="truncate text-[15px] font-semibold text-[#f2ece4]">
+            {project.title}
+          </p>
+          <p className="truncate text-[13px] text-[#f2ece4]/45">{project.subtitle}</p>
+        </div>
+        <PlayButton />
       </div>
     </div>
   );
@@ -118,7 +112,7 @@ function Spine({ project }: { project: Project }) {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#15100d] text-[#f2ece4]">
+    <div className="min-h-screen bg-[#0d0b0a] text-[#f2ece4]">
       <header className="flex items-center gap-3 px-6 pt-10 sm:px-10">
         <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#f2ece4]/30 font-mono text-[11px]">
           M
@@ -129,23 +123,11 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-6 py-16 sm:px-10 sm:py-24">
-        <div className="relative">
-          <div className="pointer-events-none absolute top-3 -left-14 hidden flex-col items-center gap-[7px] lg:flex">
-            {Array.from({ length: 14 }).map((_, i) => (
-              <span
-                key={i}
-                className="h-px w-3 bg-[#f2ece4]/25"
-                style={{ opacity: i % 3 === 0 ? 0.5 : 0.2 }}
-              />
-            ))}
-          </div>
-
-          <div className="space-y-9">
-            {projects.map((project) => (
-              <Spine key={project.title} project={project} />
-            ))}
-          </div>
+      <main className="mx-auto max-w-xl px-6 py-16 sm:px-10 sm:py-24">
+        <div className="space-y-11">
+          {projects.map((project) => (
+            <Row key={project.title} project={project} />
+          ))}
         </div>
       </main>
     </div>
