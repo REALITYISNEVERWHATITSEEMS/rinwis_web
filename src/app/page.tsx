@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 type Project = {
   title: string;
   subtitle: string;
@@ -65,6 +69,9 @@ const projects: Project[] = [
   },
 ];
 
+const BASE_TILT = 62;
+const MAX_EXTRA_TILT = 24;
+
 function Bar({ project }: { project: Project }) {
   return (
     <div
@@ -79,14 +86,23 @@ function Bar({ project }: { project: Project }) {
   );
 }
 
-function Art({ project, flip }: { project: Project; flip: boolean }) {
+function Art({
+  project,
+  flip,
+  extraTilt,
+}: {
+  project: Project;
+  flip: boolean;
+  extraTilt: number;
+}) {
+  const angle = Math.min(BASE_TILT + extraTilt, 85);
   return (
     <div style={{ perspective: "420px" }}>
       <div
         className="h-32 sm:h-36"
         style={{
           background: project.art,
-          transform: `rotateX(${flip ? "-" : ""}68deg)`,
+          transform: `rotateX(${flip ? "-" : ""}${angle}deg)`,
           transformOrigin: flip ? "bottom" : "top",
         }}
       />
@@ -94,26 +110,82 @@ function Art({ project, flip }: { project: Project; flip: boolean }) {
   );
 }
 
-function Item({ project, index }: { project: Project; index: number }) {
+function Item({
+  project,
+  index,
+  progress,
+  setRef,
+}: {
+  project: Project;
+  index: number;
+  progress: number;
+  setRef: (el: HTMLDivElement | null) => void;
+}) {
   const artAbove = index % 2 === 1;
+  const extraTilt = progress * MAX_EXTRA_TILT;
+  const scale = 1 - progress * 0.05;
+
   return (
-    <div className="overflow-hidden shadow-[0_18px_30px_-16px_rgba(0,0,0,0.8)]">
+    <div
+      ref={setRef}
+      className="overflow-hidden shadow-[0_18px_30px_-16px_rgba(0,0,0,0.8)] transition-transform duration-150 ease-out"
+      style={{ transform: `scale(${scale})` }}
+    >
       {artAbove ? (
         <>
-          <Art project={project} flip />
+          <Art project={project} flip extraTilt={extraTilt} />
           <Bar project={project} />
         </>
       ) : (
         <>
           <Bar project={project} />
-          <Art project={project} flip={false} />
+          <Art project={project} flip={false} extraTilt={extraTilt} />
         </>
       )}
     </div>
   );
 }
 
+function useScrollTilt(count: number) {
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [progress, setProgress] = useState<number[]>(() => Array(count).fill(0));
+  const frameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      frameRef.current = null;
+      const vh = window.innerHeight;
+      const next = itemRefs.current.map((el) => {
+        if (!el) return 0;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const raw = (vh * 0.55 - center) / (vh * 0.55);
+        return Math.min(1, Math.max(0, raw));
+      });
+      setProgress(next);
+    };
+
+    const onScroll = () => {
+      if (frameRef.current !== null) return;
+      frameRef.current = requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
+  }, [count]);
+
+  return { itemRefs, progress };
+}
+
 export default function Home() {
+  const { itemRefs, progress } = useScrollTilt(projects.length);
+
   return (
     <div className="min-h-screen bg-[#0d0b0a] text-[#f2ece4]">
       <header className="flex items-center gap-3 px-6 pt-10 sm:px-10">
@@ -129,7 +201,15 @@ export default function Home() {
       <main className="mx-auto max-w-xl px-6 py-16 sm:px-10 sm:py-24">
         <div className="space-y-3">
           {projects.map((project, i) => (
-            <Item key={project.title} project={project} index={i} />
+            <Item
+              key={project.title}
+              project={project}
+              index={i}
+              progress={progress[i] ?? 0}
+              setRef={(el) => {
+                itemRefs.current[i] = el;
+              }}
+            />
           ))}
         </div>
       </main>
