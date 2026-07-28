@@ -67,25 +67,32 @@ const projects: Project[] = [
 ];
 
 function Spine({ project, index }: { project: Project; index: number }) {
-  const tilt = index % 2 === 0 ? 0.6 : -0.6;
+  const tilt = index % 2 === 0 ? 1.1 : -1.1;
 
   return (
     <div className="group relative">
       {/* cover — sits behind the spine, peeking out along the top and right edge */}
       <div
-        className="absolute inset-x-0 -top-2.5 h-16 rounded-[3px] transition-transform duration-200 ease-out group-hover:-top-3.5 sm:h-[68px]"
+        className="absolute inset-x-0 -top-4 h-16 rounded-[3px] outline outline-1 outline-white/10 transition-transform duration-200 ease-out group-hover:-top-6 sm:-top-5 sm:h-[68px]"
         style={{
-          background: project.background,
-          filter: "brightness(0.65) saturate(1.2)",
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), ${project.background}`,
           transform: `rotate(${tilt}deg)`,
         }}
       />
 
       {/* spine — the front face */}
       <div
-        className="relative mr-3.5 h-16 overflow-hidden rounded-[3px] shadow-[0_16px_28px_-14px_rgba(0,0,0,0.75)] transition-transform duration-200 ease-out group-hover:-translate-y-1 sm:mr-5 sm:h-[68px]"
+        className="relative mr-7 h-16 overflow-hidden rounded-[3px] shadow-[0_22px_36px_-16px_rgba(0,0,0,0.85)] transition-transform duration-200 ease-out group-hover:-translate-y-1.5 sm:mr-9 sm:h-[68px]"
         style={{ background: project.background, color: project.color }}
       >
+        {/* embossed highlight/shadow to suggest a rounded, dimensional surface */}
+        <span
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 32%, rgba(0,0,0,0) 68%, rgba(0,0,0,0.28) 100%)",
+          }}
+        />
         {project.accent && (
           <span
             className="absolute inset-x-0 top-0 h-[3px]"
