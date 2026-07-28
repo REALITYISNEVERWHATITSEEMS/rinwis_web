@@ -3,145 +3,114 @@
 import { useEffect, useRef, useState } from "react";
 
 type Project = {
+  label: string;
   title: string;
-  subtitle: string;
-  bar: string;
-  barText: string;
-  art: string;
+  background: string;
+  color: string;
+  accent?: string;
 };
 
 const projects: Project[] = [
   {
+    label: "IDENTITY",
     title: "Personal Brand System",
-    subtitle: "Identity · 2026",
-    bar: "#2b3138",
-    barText: "#f2ece4",
-    art: "linear-gradient(160deg, #37506b 0%, #4c6b46 60%, #8a9a5b 100%)",
+    background: "linear-gradient(180deg, #d9d9d7 0%, #b7b6b2 100%)",
+    color: "#141311",
+    accent: "#38bdf8",
   },
   {
+    label: "WEB",
     title: "Studio Website Vol. 1",
-    subtitle: "Web · Next.js",
-    bar: "#e9e7e2",
-    barText: "#1a1a18",
-    art: "linear-gradient(160deg, #cfd6da 0%, #9fb0b8 100%)",
+    background: "#1c2a44",
+    color: "#c9d3e6",
   },
   {
+    label: "PRODUCT",
     title: "Field Notes App",
-    subtitle: "Product · iOS",
-    bar: "#d97757",
-    barText: "#241205",
-    art: "linear-gradient(135deg, #f2a341 0%, #e0533a 40%, #6a4fc9 75%, #f5c451 100%)",
+    background: "linear-gradient(180deg, #e7e6e2 0%, #cfcdc7 100%)",
+    color: "#1a1a18",
+    accent: "#dc2626",
   },
   {
+    label: "OPEN SOURCE",
     title: "Working in Public — Toolkit",
-    subtitle: "Open Source",
-    bar: "#2e5fb0",
-    barText: "#e8f0fc",
-    art: "linear-gradient(160deg, #7a4a2b 0%, #c98a4b 100%)",
+    background:
+      "linear-gradient(115deg, #ef4444 0%, #f59e0b 35%, #1e1b4b 68%, #f59e0b 100%)",
+    color: "#141311",
   },
   {
+    label: "RESEARCH",
     title: "Systems & Field Notes",
-    subtitle: "Research",
-    bar: "#1a1a1a",
-    barText: "#e9e7d8",
-    art: "linear-gradient(160deg, #2a2a2a 0%, #0d0d0d 100%)",
+    background: "#4b5233",
+    color: "#e9e7d8",
   },
   {
+    label: "CASE STUDY",
     title: "Product Journal, 2024–2026",
-    subtitle: "Case Study",
-    bar: "#a9c6e8",
-    barText: "#0d1b2e",
-    art: "linear-gradient(160deg, #dce8f5 0%, #9fb7d1 100%)",
+    background: "#1d4ed8",
+    color: "#dbe4fb",
   },
   {
+    label: "COLLAB",
     title: "Get Together — Community Kit",
-    subtitle: "Collaboration",
-    bar: "#8bab4f",
-    barText: "#101a05",
-    art: "linear-gradient(160deg, #a9c95f 0%, #6f8f3a 100%)",
+    background: "linear-gradient(90deg, #f59e0b 0%, #ef4444 100%)",
+    color: "#1c1917",
   },
   {
+    label: "ENGINEERING",
     title: "An Elegant Puzzle — Notes",
-    subtitle: "Engineering",
-    bar: "#3a3632",
-    barText: "#ece9e2",
-    art: "linear-gradient(160deg, #4a4640 0%, #211f1c 100%)",
+    background: "linear-gradient(180deg, #f6f5f2 0%, #d7d4cd 100%)",
+    color: "#1c1917",
   },
 ];
 
-const BASE_TILT = 62;
-const MAX_EXTRA_TILT = 24;
+const MAX_TILT = 78;
+const MAX_SCALE_DROP = 0.08;
 
-function Bar({ project }: { project: Project }) {
+function Spine({ project }: { project: Project }) {
   return (
     <div
-      className="relative z-10 flex h-9 items-center justify-center px-4 text-center sm:h-10"
-      style={{ background: project.bar, color: project.barText }}
+      className="group relative h-16 overflow-hidden rounded-[3px] shadow-[0_10px_18px_-10px_rgba(0,0,0,0.65)] sm:h-[68px]"
+      style={{ background: project.background, color: project.color }}
     >
-      <p className="truncate text-[13px] sm:text-sm">
-        <span className="font-bold italic">{project.title}</span>{" "}
-        <span className="opacity-70">{project.subtitle}</span>
-      </p>
-    </div>
-  );
-}
-
-function Art({
-  project,
-  flip,
-  extraTilt,
-}: {
-  project: Project;
-  flip: boolean;
-  extraTilt: number;
-}) {
-  const angle = Math.min(BASE_TILT + extraTilt, 85);
-  return (
-    <div style={{ perspective: "420px" }}>
-      <div
-        className="h-32 sm:h-36"
+      <span
+        className="pointer-events-none absolute inset-0"
         style={{
-          background: project.art,
-          transform: `rotateX(${flip ? "-" : ""}${angle}deg)`,
-          transformOrigin: flip ? "bottom" : "top",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.14) 100%)",
         }}
       />
-    </div>
-  );
-}
-
-function Item({
-  project,
-  index,
-  progress,
-  setRef,
-}: {
-  project: Project;
-  index: number;
-  progress: number;
-  setRef: (el: HTMLDivElement | null) => void;
-}) {
-  const artAbove = index % 2 === 1;
-  const extraTilt = progress * MAX_EXTRA_TILT;
-  const scale = 1 - progress * 0.05;
-
-  return (
-    <div
-      ref={setRef}
-      className="overflow-hidden shadow-[0_18px_30px_-16px_rgba(0,0,0,0.8)] transition-transform duration-150 ease-out"
-      style={{ transform: `scale(${scale})` }}
-    >
-      {artAbove ? (
-        <>
-          <Art project={project} flip extraTilt={extraTilt} />
-          <Bar project={project} />
-        </>
-      ) : (
-        <>
-          <Bar project={project} />
-          <Art project={project} flip={false} extraTilt={extraTilt} />
-        </>
+      <span
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-20"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.3) 88%)",
+        }}
+      />
+      {project.accent && (
+        <span
+          className="absolute inset-x-0 top-0 h-[3px]"
+          style={{
+            background: `linear-gradient(90deg, ${project.accent}, transparent 70%)`,
+          }}
+        />
       )}
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/15" />
+      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-black/25" />
+
+      <div className="relative grid h-full grid-cols-[1fr_auto_44px] items-center gap-3 px-5 sm:grid-cols-[1fr_auto_56px] sm:px-8">
+        <span className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.15em] opacity-80 sm:text-xs">
+          {project.label}
+        </span>
+        <span className="justify-self-center truncate text-center text-xs font-semibold uppercase tracking-wide sm:text-sm">
+          {project.title}
+        </span>
+        <span className="justify-self-end opacity-50">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="9" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
+            <circle cx="15" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
+          </svg>
+        </span>
+      </div>
     </div>
   );
 }
@@ -159,7 +128,7 @@ function useScrollTilt(count: number) {
         if (!el) return 0;
         const rect = el.getBoundingClientRect();
         const center = rect.top + rect.height / 2;
-        const raw = (vh * 0.55 - center) / (vh * 0.55);
+        const raw = (vh * 0.4 - center) / (vh * 0.4);
         return Math.min(1, Math.max(0, raw));
       });
       setProgress(next);
@@ -187,7 +156,7 @@ export default function Home() {
   const { itemRefs, progress } = useScrollTilt(projects.length);
 
   return (
-    <div className="min-h-screen bg-[#0d0b0a] text-[#f2ece4]">
+    <div className="min-h-screen bg-[#15100d] text-[#f2ece4]">
       <header className="flex items-center gap-3 px-6 pt-10 sm:px-10">
         <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#f2ece4]/30 font-mono text-[11px]">
           M
@@ -198,19 +167,32 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-xl px-6 py-16 sm:px-10 sm:py-24">
-        <div className="space-y-3">
-          {projects.map((project, i) => (
-            <Item
-              key={project.title}
-              project={project}
-              index={i}
-              progress={progress[i] ?? 0}
-              setRef={(el) => {
-                itemRefs.current[i] = el;
-              }}
-            />
-          ))}
+      <main className="mx-auto max-w-2xl px-6 py-16 sm:px-10 sm:py-24">
+        <div className="space-y-9">
+          {projects.map((project, i) => {
+            const p = progress[i] ?? 0;
+            return (
+              <div
+                key={project.title}
+                ref={(el) => {
+                  itemRefs.current[i] = el;
+                }}
+                style={{
+                  perspective: "800px",
+                }}
+              >
+                <div
+                  style={{
+                    transform: `rotateX(${p * MAX_TILT}deg) scale(${1 - p * MAX_SCALE_DROP})`,
+                    transformOrigin: "top",
+                    opacity: 1 - p * 0.35,
+                  }}
+                >
+                  <Spine project={project} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>
