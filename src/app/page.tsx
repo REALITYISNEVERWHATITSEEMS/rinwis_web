@@ -1,111 +1,114 @@
 type Project = {
   title: string;
   subtitle: string;
-  background: string;
-  accent: string;
+  bar: string;
+  barText: string;
+  art: string;
 };
 
 const projects: Project[] = [
   {
     title: "Personal Brand System",
     subtitle: "Identity · 2026",
-    background: "linear-gradient(135deg, #e8e6df 0%, #b9b6ac 100%)",
-    accent: "#141311",
+    bar: "#2b3138",
+    barText: "#f2ece4",
+    art: "linear-gradient(160deg, #37506b 0%, #4c6b46 60%, #8a9a5b 100%)",
   },
   {
     title: "Studio Website Vol. 1",
     subtitle: "Web · Next.js",
-    background: "#c23b2f",
-    accent: "#f4d9d3",
+    bar: "#e9e7e2",
+    barText: "#1a1a18",
+    art: "linear-gradient(160deg, #cfd6da 0%, #9fb0b8 100%)",
   },
   {
     title: "Field Notes App",
     subtitle: "Product · iOS",
-    background: "#6a4fc9",
-    accent: "#efe8ff",
+    bar: "#d97757",
+    barText: "#241205",
+    art: "linear-gradient(135deg, #f2a341 0%, #e0533a 40%, #6a4fc9 75%, #f5c451 100%)",
   },
   {
     title: "Working in Public — Toolkit",
     subtitle: "Open Source",
-    background: "linear-gradient(135deg, #f2a341 0%, #d97b2d 100%)",
-    accent: "#2a1a0b",
+    bar: "#2e5fb0",
+    barText: "#e8f0fc",
+    art: "linear-gradient(160deg, #7a4a2b 0%, #c98a4b 100%)",
   },
   {
     title: "Systems & Field Notes",
     subtitle: "Research",
-    background: "#4b5233",
-    accent: "#e9e7d8",
+    bar: "#1a1a1a",
+    barText: "#e9e7d8",
+    art: "linear-gradient(160deg, #2a2a2a 0%, #0d0d0d 100%)",
   },
   {
     title: "Product Journal, 2024–2026",
     subtitle: "Case Study",
-    background: "#1d4ed8",
-    accent: "#dbe4fb",
+    bar: "#a9c6e8",
+    barText: "#0d1b2e",
+    art: "linear-gradient(160deg, #dce8f5 0%, #9fb7d1 100%)",
   },
   {
     title: "Get Together — Community Kit",
     subtitle: "Collaboration",
-    background: "linear-gradient(135deg, #f5c451 0%, #e0533a 100%)",
-    accent: "#241505",
+    bar: "#8bab4f",
+    barText: "#101a05",
+    art: "linear-gradient(160deg, #a9c95f 0%, #6f8f3a 100%)",
   },
   {
     title: "An Elegant Puzzle — Notes",
     subtitle: "Engineering",
-    background: "linear-gradient(135deg, #ece9e2 0%, #cbc7bc 100%)",
-    accent: "#1c1917",
+    bar: "#3a3632",
+    barText: "#ece9e2",
+    art: "linear-gradient(160deg, #4a4640 0%, #211f1c 100%)",
   },
 ];
 
-function Book({ project }: { project: Project }) {
+function Bar({ project }: { project: Project }) {
   return (
-    <div className="w-32 shrink-0 sm:w-36" style={{ perspective: "900px" }}>
-      <div
-        className="h-16 rounded-t-[5px] shadow-[0_20px_28px_-14px_rgba(0,0,0,0.75)] sm:h-[74px]"
-        style={{
-          background: project.background,
-          transform: "rotateX(50deg)",
-          transformOrigin: "bottom",
-        }}
-      />
-      <div
-        className="relative h-6 overflow-hidden rounded-b-[5px] sm:h-7"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(180deg, #efe9dd 0px, #efe9dd 2px, #ddd5c2 2px, #ddd5c2 4px)",
-        }}
-      >
-        <span
-          className="absolute top-1/2 right-1.5 h-3.5 w-3.5 -translate-y-1/2 rounded-[2px] sm:h-4 sm:w-4"
-          style={{ background: project.accent }}
-        />
-      </div>
+    <div
+      className="relative z-10 flex h-9 items-center justify-center px-4 text-center sm:h-10"
+      style={{ background: project.bar, color: project.barText }}
+    >
+      <p className="truncate text-[13px] sm:text-sm">
+        <span className="font-bold italic">{project.title}</span>{" "}
+        <span className="opacity-70">{project.subtitle}</span>
+      </p>
     </div>
   );
 }
 
-function PlayButton() {
+function Art({ project, flip }: { project: Project; flip: boolean }) {
   return (
-    <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#f2ece4]/25 text-[#f2ece4]/70 transition-colors hover:border-[#f2ece4]/50 hover:text-[#f2ece4]">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M8 5v14l11-7z" />
-      </svg>
-    </button>
+    <div style={{ perspective: "420px" }}>
+      <div
+        className="h-32 sm:h-36"
+        style={{
+          background: project.art,
+          transform: `rotateX(${flip ? "-" : ""}68deg)`,
+          transformOrigin: flip ? "bottom" : "top",
+        }}
+      />
+    </div>
   );
 }
 
-function Row({ project }: { project: Project }) {
+function Item({ project, index }: { project: Project; index: number }) {
+  const artAbove = index % 2 === 1;
   return (
-    <div className="flex items-end gap-5">
-      <Book project={project} />
-      <div className="flex flex-1 items-center justify-between gap-3 pb-1">
-        <div className="min-w-0">
-          <p className="truncate text-[15px] font-semibold text-[#f2ece4]">
-            {project.title}
-          </p>
-          <p className="truncate text-[13px] text-[#f2ece4]/45">{project.subtitle}</p>
-        </div>
-        <PlayButton />
-      </div>
+    <div className="overflow-hidden shadow-[0_18px_30px_-16px_rgba(0,0,0,0.8)]">
+      {artAbove ? (
+        <>
+          <Art project={project} flip />
+          <Bar project={project} />
+        </>
+      ) : (
+        <>
+          <Bar project={project} />
+          <Art project={project} flip={false} />
+        </>
+      )}
     </div>
   );
 }
@@ -124,9 +127,9 @@ export default function Home() {
       </header>
 
       <main className="mx-auto max-w-xl px-6 py-16 sm:px-10 sm:py-24">
-        <div className="space-y-11">
-          {projects.map((project) => (
-            <Row key={project.title} project={project} />
+        <div className="space-y-3">
+          {projects.map((project, i) => (
+            <Item key={project.title} project={project} index={i} />
           ))}
         </div>
       </main>
