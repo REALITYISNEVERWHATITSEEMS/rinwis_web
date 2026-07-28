@@ -66,36 +66,52 @@ const projects: Project[] = [
   },
 ];
 
-function Spine({ project }: { project: Project }) {
-  return (
-    <div
-      className="group relative h-16 w-full overflow-hidden rounded-[3px] shadow-[0_14px_28px_-16px_rgba(0,0,0,0.75)] transition-transform duration-200 ease-out hover:-translate-y-0.5 sm:h-[68px]"
-      style={{ background: project.background, color: project.color }}
-    >
-      {project.accent && (
-        <span
-          className="absolute inset-x-0 top-0 h-[3px]"
-          style={{
-            background: `linear-gradient(90deg, ${project.accent}, transparent 70%)`,
-          }}
-        />
-      )}
-      <span className="pointer-events-none absolute inset-y-0 left-0 w-px bg-white/10" />
-      <span className="pointer-events-none absolute inset-y-0 right-16 w-px bg-black/10 sm:right-20" />
+function Spine({ project, index }: { project: Project; index: number }) {
+  const tilt = index % 2 === 0 ? 0.6 : -0.6;
 
-      <div className="relative grid h-full grid-cols-[1fr_auto_56px] items-center gap-3 px-5 sm:grid-cols-[1fr_auto_72px] sm:px-8">
-        <span className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.15em] opacity-80 sm:text-xs">
-          {project.label}
-        </span>
-        <span className="justify-self-center truncate text-center text-xs font-semibold uppercase tracking-wide sm:text-sm">
-          {project.title}
-        </span>
-        <span className="justify-self-end opacity-50 transition-opacity duration-200 group-hover:opacity-90">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <circle cx="9" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
-            <circle cx="15" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
-          </svg>
-        </span>
+  return (
+    <div className="group relative">
+      {/* cover — sits behind the spine, peeking out along the top and right edge */}
+      <div
+        className="absolute inset-x-0 -top-2.5 h-16 rounded-[3px] transition-transform duration-200 ease-out group-hover:-top-3.5 sm:h-[68px]"
+        style={{
+          background: project.background,
+          filter: "brightness(0.65) saturate(1.2)",
+          transform: `rotate(${tilt}deg)`,
+        }}
+      />
+
+      {/* spine — the front face */}
+      <div
+        className="relative mr-3.5 h-16 overflow-hidden rounded-[3px] shadow-[0_16px_28px_-14px_rgba(0,0,0,0.75)] transition-transform duration-200 ease-out group-hover:-translate-y-1 sm:mr-5 sm:h-[68px]"
+        style={{ background: project.background, color: project.color }}
+      >
+        {project.accent && (
+          <span
+            className="absolute inset-x-0 top-0 h-[3px]"
+            style={{
+              background: `linear-gradient(90deg, ${project.accent}, transparent 70%)`,
+            }}
+          />
+        )}
+        <span className="pointer-events-none absolute inset-y-0 left-0 w-px bg-white/10" />
+        <span className="pointer-events-none absolute inset-y-0 right-0 w-px bg-black/15" />
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-black/20" />
+
+        <div className="relative grid h-full grid-cols-[1fr_auto_44px] items-center gap-3 px-5 sm:grid-cols-[1fr_auto_56px] sm:px-8">
+          <span className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.15em] opacity-80 sm:text-xs">
+            {project.label}
+          </span>
+          <span className="justify-self-center truncate text-center text-xs font-semibold uppercase tracking-wide sm:text-sm">
+            {project.title}
+          </span>
+          <span className="justify-self-end opacity-50 transition-opacity duration-200 group-hover:opacity-90">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <circle cx="9" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
+              <circle cx="15" cy="12" r="6" stroke="currentColor" strokeWidth="1.4" />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -114,21 +130,23 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto flex max-w-5xl gap-6 px-6 py-16 sm:gap-10 sm:px-10 sm:py-24">
-        <div className="hidden w-4 flex-col items-center gap-[7px] pt-3 lg:flex">
-          {Array.from({ length: 14 }).map((_, i) => (
-            <span
-              key={i}
-              className="h-px w-3 bg-[#f2ece4]/25"
-              style={{ opacity: i % 3 === 0 ? 0.5 : 0.2 }}
-            />
-          ))}
-        </div>
+      <main className="mx-auto max-w-2xl px-6 py-16 sm:px-10 sm:py-24">
+        <div className="relative">
+          <div className="pointer-events-none absolute top-3 -left-14 hidden flex-col items-center gap-[7px] lg:flex">
+            {Array.from({ length: 14 }).map((_, i) => (
+              <span
+                key={i}
+                className="h-px w-3 bg-[#f2ece4]/25"
+                style={{ opacity: i % 3 === 0 ? 0.5 : 0.2 }}
+              />
+            ))}
+          </div>
 
-        <div className="mx-auto w-full max-w-xl space-y-7 lg:mx-0">
-          {projects.map((project) => (
-            <Spine key={project.title} project={project} />
-          ))}
+          <div className="space-y-9">
+            {projects.map((project, i) => (
+              <Spine key={project.title} project={project} index={i} />
+            ))}
+          </div>
         </div>
       </main>
     </div>
