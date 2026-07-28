@@ -64,8 +64,7 @@ const projects: Project[] = [
   },
 ];
 
-const MAX_TILT = 78;
-const MAX_SCALE_DROP = 0.08;
+const LIFT = 8;
 
 function Spine({ project }: { project: Project }) {
   return (
@@ -178,18 +177,33 @@ export default function Home() {
                   itemRefs.current[i] = el;
                 }}
                 style={{
-                  perspective: "800px",
+                  perspective: "500px",
+                  transform: `translateY(${-p * LIFT}px)`,
                 }}
               >
+                {/* top edge — peeks out as the book lifts */}
                 <div
+                  className="h-3 sm:h-3.5"
                   style={{
-                    transform: `rotateX(${p * MAX_TILT}deg) scale(${1 - p * MAX_SCALE_DROP})`,
-                    transformOrigin: "top",
-                    opacity: 1 - p * 0.35,
+                    background: project.background,
+                    filter: "brightness(1.3)",
+                    opacity: p,
+                    transform: `scaleY(${0.2 + p * 0.8}) rotateX(-72deg)`,
+                    transformOrigin: "bottom",
                   }}
-                >
-                  <Spine project={project} />
-                </div>
+                />
+                <Spine project={project} />
+                {/* bottom edge — peeks out as the book lifts */}
+                <div
+                  className="h-3 sm:h-3.5"
+                  style={{
+                    background: project.background,
+                    filter: "brightness(0.55)",
+                    opacity: p,
+                    transform: `scaleY(${0.2 + p * 0.8}) rotateX(72deg)`,
+                    transformOrigin: "top",
+                  }}
+                />
               </div>
             );
           })}
