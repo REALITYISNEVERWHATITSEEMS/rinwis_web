@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MYEONGWOOKIM",
-  description: "MYEONGWOOKIM",
+  description: "Visual direction & 3D — Myeongwoo Kim",
 };
 
 export default function RootLayout({
