@@ -35,7 +35,7 @@ export const projects: Project[] = [
       { label: "Timeline", value: "4주" },
       { label: "Tools", value: "Unreal Engine 5, Blender, Illustrator, Photoshop, After Effects, Premiere Pro, Midjourney, Cargo" },
     ],
-    images: [size(1208, 1510), size(1616, 2020), size(1108, 1385), size(1221, 429), size(1221, 429), size(1221, 429)],
+    images: [size(1208, 1510)],
   },
   {
     slug: "m-simulacre",
@@ -54,7 +54,7 @@ export const projects: Project[] = [
       { label: "Timeline", value: "8주" },
       { label: "Tools", value: "Unreal Engine 5, Blender, Illustrator, Photoshop, After Effects, Premiere Pro, Midjourney, Substance Painter" },
     ],
-    images: [size(1709, 2042), size(1144, 1618), size(923, 519), size(545, 408), size(726, 408), size(923, 458)],
+    images: [size(1414, 2000)],
   },
   {
     slug: "jente-chrome-hearts",
@@ -69,7 +69,7 @@ export const projects: Project[] = [
       { label: "Client", value: "jente" },
       { label: "Role", value: "3D Designer" },
     ],
-    images: [size(1440, 810), size(1002, 501), size(1002, 501), size(1002, 501), size(1002, 501), size(462, 805)],
+    images: [size(1080, 607)],
   },
   {
     slug: "jente-tekla",
@@ -83,7 +83,7 @@ export const projects: Project[] = [
       { label: "Client", value: "jente" },
       { label: "Role", value: "3D Designer" },
     ],
-    images: [size(775, 775), size(964, 427), size(964, 427), size(962, 426), size(964, 427)],
+    images: [size(775, 775)],
   },
   {
     slug: "jente-rick-owens",
@@ -97,7 +97,7 @@ export const projects: Project[] = [
       { label: "Client", value: "jente" },
       { label: "Role", value: "3D Designer" },
     ],
-    images: [size(1440, 810), size(964, 427), size(964, 427), size(964, 427), size(964, 427)],
+    images: [size(1440, 810)],
   },
   {
     slug: "jente-seasonal-visuals",
@@ -114,7 +114,7 @@ export const projects: Project[] = [
       { label: "Timeline", value: "각 4주" },
       { label: "Tools", value: "Unreal Engine 5, Blender, 3D Clo, Illustrator, Photoshop, Premiere Pro, Substance Painter" },
     ],
-    images: [size(693, 307), size(696, 308), size(695, 308), size(696, 308), size(693, 307), size(693, 307)],
+    images: [size(1691, 951), size(1635, 545)],
   },
   {
     slug: "jente-3d-product-viewer",
@@ -132,7 +132,7 @@ export const projects: Project[] = [
       { label: "Timeline", value: "배너: 1주 / 뷰어: 4주" },
       { label: "Tools", value: "Unreal Engine 5, Blender, 3D CLO, Substance Painter, Sketchfab, Shopify, Illustrator, Photoshop" },
     ],
-    images: [size(1766, 994), size(873, 291), size(873, 294), size(578, 371), size(661, 372)],
+    images: [size(2000, 1281), size(2000, 673), size(1920, 1080)],
   },
   {
     slug: "jente-trend-report",
@@ -148,57 +148,7 @@ export const projects: Project[] = [
       { label: "Scope", value: "촬영 기획, 촬영 보조, 현장 관리" },
       { label: "Timeline", value: "2주~8주" },
     ],
-    images: [size(1100, 1375), size(1170, 713), size(913, 609), size(407, 610), size(407, 610)],
-  },
-  {
-    slug: "leedaearth",
-    title: "다섯 (leedaearth)",
-    category: "Photography & AD",
-    year: "2024–2025",
-    description: [
-      "Studio Leedaearth의 어시스턴트 디렉터로서, tinder · DASUIT · Vüssen · JaeDal 등 다양한 아티스트·브랜드의 비주얼 프로젝트 제작에 참여했다.",
-    ],
-    credits: [
-      { label: "Client", value: "Studio Leedaearth" },
-      { label: "Role", value: "Photography Assistant, AD" },
-      { label: "Scope", value: "기획, 촬영보조, 현장관리" },
-      { label: "Timeline", value: "1주~2주" },
-    ],
-    images: [size(2000, 1334), size(1080, 1350), size(728, 910), size(680, 383), size(679, 379), size(768, 768)],
-  },
-  {
-    slug: "floyd",
-    title: "Floyd",
-    category: "3D Animation",
-    year: "2023",
-    description: [
-      "뮌헨 캐리어 브랜드 FLOYD의 브랜드 소셜 채널용 3D 애니메이션 2편을 각 4주간 기획·제작했다.",
-    ],
-    credits: [
-      { label: "Client", value: "FLOYD, Munich" },
-      { label: "Role", value: "Creator" },
-      { label: "Scope", value: "기획, 3D 애니메이션 제작" },
-      { label: "Timeline", value: "각 4주" },
-      { label: "Tools", value: "Unreal Engine 5, Blender, Illustrator, Photoshop, Premiere Pro, Substance Painter" },
-    ],
-    images: [size(1524, 857), size(1307, 925), size(748, 450), size(748, 421), size(315, 236)],
-  },
-  {
-    slug: "updraft",
-    title: "Updraft",
-    category: "Photography",
-    year: "2023–2025",
-    description: [
-      "패션 브랜드 UPDRAFT의 무드컷 촬영을 기획하고 진행했다.",
-    ],
-    credits: [
-      { label: "Client", value: "UPDRAFT" },
-      { label: "Role", value: "Photographer" },
-      { label: "Scope", value: "기획, 촬영" },
-      { label: "Deliverables", value: "무드컷" },
-      { label: "Timeline", value: "1주" },
-    ],
-    images: [size(1469, 2057), size(513, 714), size(339, 474), size(339, 226), size(511, 714)],
+    images: [size(1600, 2000), size(1334, 2000), size(1170, 713)],
   },
   {
     slug: "from-hell-to-heaven",
@@ -215,7 +165,7 @@ export const projects: Project[] = [
       { label: "Timeline", value: "2주" },
       { label: "Tools", value: "Unreal Engine 5, Blender, Adobe Illustrator, Photoshop, Premiere Pro, Substance Painter" },
     ],
-    images: [size(936, 925), size(828, 1472), size(563, 751)],
+    images: [size(828, 1472)],
   },
   {
     slug: "visuals-2023",
@@ -226,7 +176,7 @@ export const projects: Project[] = [
       "3D를 배우기 시작한 첫해에, 개인적으로 좋아하는 브랜드들의 의류들을 모델링 하며 3D 그래픽 디자인 프로세스를 탐구했다.",
     ],
     credits: [{ label: "Role", value: "Personal Works" }],
-    images: [size(1440, 810), size(1440, 810), size(1152, 1440), size(474, 474), size(375, 474)],
+    images: [size(1440, 810)],
   },
   {
     slug: "dolce-gabbana",
@@ -241,15 +191,16 @@ export const projects: Project[] = [
       { label: "School", value: "ESMOD Seoul" },
       { label: "Role", value: "Fashion Design" },
     ],
-    images: [
-      size(971, 1473),
-      size(1039, 1469),
-      size(614, 868),
-      size(553, 737),
-      size(553, 737),
-      size(614, 868),
-      size(884, 500),
-    ],
+    images: [size(1318, 2000)],
+  },
+  {
+    slug: "sororam",
+    title: "SORORAM",
+    category: "Photography",
+    year: "2026",
+    description: [],
+    credits: [{ label: "Role", value: "Photographer" }],
+    images: [size(1333, 2000)],
   },
   {
     slug: "okayama-musinsa",
@@ -265,15 +216,7 @@ export const projects: Project[] = [
       { label: "Role", value: "Fashion Design" },
       { label: "Award", value: "Okayama Denim Contest 3RD, Musinsa Next Fashion Scholarship" },
     ],
-    images: [
-      size(455, 587),
-      size(539, 762),
-      size(1000, 487),
-      size(529, 375),
-      size(529, 373),
-      size(508, 761),
-      size(1140, 394),
-    ],
+    images: [size(1600, 1091), size(1414, 2000)],
   },
 ];
 
