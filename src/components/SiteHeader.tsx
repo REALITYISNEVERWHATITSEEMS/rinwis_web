@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
 
 const SPINE_COLOR = "#242424";
@@ -49,6 +49,13 @@ function Spine({ project, index }: { project: (typeof projects)[number]; index: 
 
 export default function SiteHeader() {
   const [indexOpen, setIndexOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = indexOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [indexOpen]);
 
   return (
     <>
