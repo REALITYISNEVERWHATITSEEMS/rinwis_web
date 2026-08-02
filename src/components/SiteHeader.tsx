@@ -4,36 +4,43 @@ import Link from "next/link";
 import { useState } from "react";
 import { projects } from "@/lib/projects";
 
-function isLight(hex: string): boolean {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return 0.299 * r + 0.587 * g + 0.114 * b > 150;
-}
+const SPINE_COLOR = "#242424";
 
 function Spine({ project, index }: { project: (typeof projects)[number]; index: number }) {
-  const light = isLight(project.color);
-  const fg = light ? "text-black" : "text-white";
-  const fgMuted = light ? "text-black/50" : "text-white/60";
-  const fgFaint = light ? "text-black/35" : "text-white/40";
-
   return (
     <Link
       href={`/work/${project.slug}`}
-      className="group relative block h-16 shrink-0 overflow-hidden rounded-[3px] shadow-[0_10px_18px_-10px_rgba(0,0,0,0.65)] transition-transform duration-300 hover:-translate-y-px sm:h-20"
-      style={{ background: project.color }}
+      className="group relative block h-16 w-full shrink-0 overflow-hidden rounded-[3px] transition-transform duration-300 hover:-translate-y-px sm:h-full sm:w-auto sm:flex-1 sm:hover:-translate-y-0 sm:hover:-translate-x-px"
+      style={{ background: SPINE_COLOR }}
     >
-
-      <div className="relative grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:gap-5 sm:px-6">
-        <span className={`font-mono text-[10px] sm:text-xs ${fgMuted}`}>
+      {/* mobile: horizontal row */}
+      <div className="relative grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:hidden">
+        <span className="font-mono text-[10px] text-white/60">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <span className={`truncate text-base font-semibold tracking-tight sm:text-xl ${fg}`}>
+        <span className="truncate text-base font-semibold tracking-tight text-white">
           {project.title}
         </span>
-        <span className={`shrink-0 text-right text-[10px] uppercase tracking-wide sm:text-xs ${fgMuted}`}>
+        <span className="shrink-0 text-right text-[10px] uppercase tracking-wide text-white/60">
           <span className="block">{project.category}</span>
-          <span className={`block ${fgFaint}`}>{project.year}</span>
+          <span className="block text-white/40">{project.year}</span>
+        </span>
+      </div>
+
+      {/* desktop: vertical spine */}
+      <div className="hidden h-full w-full flex-col items-center justify-between py-6 sm:flex">
+        <span className="font-mono text-[10px] text-white/60">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span
+          className="max-h-[65%] truncate text-lg font-semibold tracking-tight text-white"
+          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+        >
+          {project.title}
+        </span>
+        <span className="text-center text-[9px] uppercase tracking-wide text-white/60">
+          <span className="block">{project.category}</span>
+          <span className="block text-white/40">{project.year}</span>
         </span>
       </div>
     </Link>
@@ -59,14 +66,17 @@ export default function SiteHeader() {
       </header>
 
       <div
-        className={`fixed inset-0 z-30 flex flex-col overflow-y-auto bg-black px-5 pt-24 pb-16 transition-opacity duration-300 sm:px-8 ${
+        className={`fixed inset-0 z-30 flex flex-col overflow-y-auto bg-black px-5 pt-24 pb-16 transition-opacity duration-300 sm:overflow-hidden sm:px-8 ${
           indexOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={(e) => {
           if (e.target === e.currentTarget) setIndexOpen(false);
         }}
       >
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-1.5" onClick={() => setIndexOpen(false)}>
+        <div
+          className="mx-auto flex w-full max-w-3xl flex-col gap-1.5 sm:h-full sm:max-w-none sm:flex-row sm:gap-1"
+          onClick={() => setIndexOpen(false)}
+        >
           {projects.map((project, i) => (
             <Spine key={project.slug} project={project} index={i} />
           ))}
