@@ -10,7 +10,7 @@ function Spine({ project, index }: { project: (typeof projects)[number]; index: 
   return (
     <Link
       href={`/work/${project.slug}`}
-      className="group relative block h-16 w-full shrink-0 overflow-hidden rounded-[3px] transition-transform duration-300 hover:-translate-y-px sm:h-full sm:w-auto sm:flex-1 sm:hover:-translate-y-0 sm:hover:-translate-x-px"
+      className="group relative block h-16 w-full shrink-0 overflow-hidden rounded-[3px] transition-[margin] duration-300 hover:my-2 sm:h-full sm:w-auto sm:flex-1 sm:hover:my-0 sm:hover:mx-2"
       style={{ background: SPINE_COLOR }}
     >
       {/* mobile: horizontal row */}
@@ -34,7 +34,7 @@ function Spine({ project, index }: { project: (typeof projects)[number]; index: 
         </span>
         <span
           className="max-h-[65%] truncate text-lg font-semibold tracking-tight text-white"
-          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+          style={{ writingMode: "vertical-rl" }}
         >
           {project.title}
         </span>
