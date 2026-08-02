@@ -49,7 +49,7 @@ export default function Home() {
         </button>
       </header>
 
-      <main className="columns-2 gap-0.5 px-0.5 pt-0.5 sm:columns-3">
+      <main className="columns-2 gap-0.5 px-0.5 pt-0.5 sm:columns-4">
         {feed.map((img) => (
           <Link
             key={img.key}
@@ -61,7 +61,7 @@ export default function Home() {
               alt={img.title}
               width={img.width}
               height={img.height}
-              sizes="(max-width: 640px) 50vw, 33vw"
+              sizes="(max-width: 640px) 50vw, 25vw"
               className="block h-auto w-full"
               priority={false}
             />
