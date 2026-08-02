@@ -10,6 +10,7 @@ export type Project = {
   description: string[];
   credits: Credit[];
   images: ImageSize[];
+  color: string;
 };
 
 const size = (width: number, height: number): ImageSize => ({ width, height });
@@ -23,6 +24,7 @@ const rawProjects: Project[] = [
     description: [],
     credits: [{ label: "Role", value: "Photographer" }],
     images: [size(1333, 2000)],
+    color: "#969999",
   },
   {
     slug: "sensora",
@@ -45,6 +47,7 @@ const rawProjects: Project[] = [
       { label: "Tools", value: "Unreal Engine 5, Blender, Illustrator, Photoshop, After Effects, Premiere Pro, Midjourney, Cargo" },
     ],
     images: [size(1208, 1510)],
+    color: "#161616",
   },
   {
     slug: "m-simulacre",
@@ -64,6 +67,7 @@ const rawProjects: Project[] = [
       { label: "Tools", value: "Unreal Engine 5, Blender, Illustrator, Photoshop, After Effects, Premiere Pro, Midjourney, Substance Painter" },
     ],
     images: [size(1414, 2000)],
+    color: "#FFFFFF",
   },
   {
     slug: "jente-chrome-hearts",
@@ -79,6 +83,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "3D Designer" },
     ],
     images: [size(1080, 607)],
+    color: "#E7E7E9",
   },
   {
     slug: "jente-tekla",
@@ -93,6 +98,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "3D Designer" },
     ],
     images: [size(775, 775)],
+    color: "#BC9C8C",
   },
   {
     slug: "jente-rick-owens",
@@ -107,6 +113,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "3D Designer" },
     ],
     images: [size(1440, 810)],
+    color: "#181615",
   },
   {
     slug: "jente-seasonal-visuals",
@@ -124,6 +131,7 @@ const rawProjects: Project[] = [
       { label: "Tools", value: "Unreal Engine 5, Blender, 3D Clo, Illustrator, Photoshop, Premiere Pro, Substance Painter" },
     ],
     images: [size(1691, 951), size(1635, 545)],
+    color: "#6C2820",
   },
   {
     slug: "jente-3d-product-viewer",
@@ -142,6 +150,7 @@ const rawProjects: Project[] = [
       { label: "Tools", value: "Unreal Engine 5, Blender, 3D CLO, Substance Painter, Sketchfab, Shopify, Illustrator, Photoshop" },
     ],
     images: [size(2000, 1281), size(2000, 673), size(1920, 1080)],
+    color: "#684130",
   },
   {
     slug: "jente-trend-report",
@@ -158,6 +167,7 @@ const rawProjects: Project[] = [
       { label: "Timeline", value: "2주~8주" },
     ],
     images: [size(1600, 2000), size(1334, 2000), size(1170, 713)],
+    color: "#D1D4DB",
   },
   {
     slug: "from-hell-to-heaven",
@@ -175,6 +185,7 @@ const rawProjects: Project[] = [
       { label: "Tools", value: "Unreal Engine 5, Blender, Adobe Illustrator, Photoshop, Premiere Pro, Substance Painter" },
     ],
     images: [size(828, 1472)],
+    color: "#566054",
   },
   {
     slug: "visuals-2023",
@@ -186,6 +197,7 @@ const rawProjects: Project[] = [
     ],
     credits: [{ label: "Role", value: "Personal Works" }],
     images: [size(1440, 810)],
+    color: "#652F17",
   },
   {
     slug: "dolce-gabbana",
@@ -201,6 +213,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "Fashion Design" },
     ],
     images: [size(1318, 2000)],
+    color: "#51504E",
   },
   {
     slug: "okayama-musinsa",
@@ -217,6 +230,7 @@ const rawProjects: Project[] = [
       { label: "Award", value: "Okayama Denim Contest 3RD, Musinsa Next Fashion Scholarship" },
     ],
     images: [size(1600, 1091), size(1414, 2000)],
+    color: "#2B2B2B",
   },
 ];
 
