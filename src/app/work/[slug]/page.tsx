@@ -22,14 +22,11 @@ export default async function ProjectPage({
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <header className="fixed inset-x-0 top-0 z-10 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
-        <Link href="/" className="text-xs font-semibold tracking-widest">
+      <header className="fixed inset-x-0 top-0 z-10 mix-blend-difference flex items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
+        <Link href="/" className="text-xs font-semibold tracking-widest text-white">
           MYEONGWOOKIM
         </Link>
-        <Link
-          href="/"
-          className="text-xs font-semibold tracking-widest text-white/80 transition-colors hover:text-white"
-        >
+        <Link href="/" className="text-xs font-semibold tracking-widest text-white">
           INDEX
         </Link>
       </header>

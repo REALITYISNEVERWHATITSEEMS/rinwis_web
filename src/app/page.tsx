@@ -87,14 +87,14 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
-        <Link href="/" className="text-xs font-semibold tracking-widest">
+      <header className="fixed inset-x-0 top-0 z-40 mix-blend-difference flex items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
+        <Link href="/" className="text-xs font-semibold tracking-widest text-white">
           MYEONGWOOKIM
         </Link>
         <button
           type="button"
           onClick={() => setIndexOpen((v) => !v)}
-          className="text-xs font-semibold tracking-widest text-white/80 transition-colors hover:text-white"
+          className="text-xs font-semibold tracking-widest text-white"
         >
           {indexOpen ? "CLOSE" : "INDEX"}
         </button>

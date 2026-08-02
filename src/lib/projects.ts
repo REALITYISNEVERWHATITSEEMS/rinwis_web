@@ -14,7 +14,7 @@ export type Project = {
 
 const size = (width: number, height: number): ImageSize => ({ width, height });
 
-export const projects: Project[] = [
+const rawProjects: Project[] = [
   {
     slug: "sororam",
     title: "SORORAM",
@@ -219,6 +219,15 @@ export const projects: Project[] = [
     images: [size(1600, 1091), size(1414, 2000)],
   },
 ];
+
+function endYear(year: string): number {
+  const matches = year.match(/\d{4}/g);
+  return matches ? Number(matches[matches.length - 1]) : 0;
+}
+
+export const projects: Project[] = [...rawProjects].sort(
+  (a, b) => endYear(b.year) - endYear(a.year),
+);
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
