@@ -4,14 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
 
-const SPINE_COLOR = "#242424";
-
 function Spine({ project, index }: { project: (typeof projects)[number]; index: number }) {
   return (
     <Link
       href={`/work/${project.slug}`}
-      className="group relative block h-16 w-full shrink-0 overflow-hidden rounded-[3px] transition-[margin] duration-300 hover:my-2 sm:h-full sm:w-auto sm:flex-1 sm:hover:my-0 sm:hover:mx-2"
-      style={{ background: SPINE_COLOR }}
+      className="group relative block h-16 w-full shrink-0 overflow-hidden rounded-[3px] border border-white/70 bg-transparent transition-[margin] duration-300 hover:my-4 sm:h-full sm:w-auto sm:flex-1 sm:hover:my-0 sm:hover:mx-4"
     >
       {/* mobile: horizontal row */}
       <div className="relative grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:hidden">
