@@ -16,6 +16,15 @@ const size = (width: number, height: number): ImageSize => ({ width, height });
 
 export const projects: Project[] = [
   {
+    slug: "sororam",
+    title: "SORORAM",
+    category: "Photography",
+    year: "2026",
+    description: [],
+    credits: [{ label: "Role", value: "Photographer" }],
+    images: [size(1333, 2000)],
+  },
+  {
     slug: "sensora",
     title: "SENSORA",
     category: "Brand & Interactive",
@@ -192,15 +201,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Fashion Design" },
     ],
     images: [size(1318, 2000)],
-  },
-  {
-    slug: "sororam",
-    title: "SORORAM",
-    category: "Photography",
-    year: "2026",
-    description: [],
-    credits: [{ label: "Role", value: "Photographer" }],
-    images: [size(1333, 2000)],
   },
   {
     slug: "okayama-musinsa",
