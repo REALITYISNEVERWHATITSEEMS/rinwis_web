@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projectImages, projects } from "@/lib/projects";
+import SiteHeader from "@/components/SiteHeader";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -22,14 +23,7 @@ export default async function ProjectPage({
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <header className="fixed inset-x-0 top-0 z-10 mix-blend-difference flex items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
-        <Link href="/" className="text-xs font-semibold tracking-widest text-white">
-          MYEONGWOOKIM
-        </Link>
-        <Link href="/" className="text-xs font-semibold tracking-widest text-white">
-          INDEX
-        </Link>
-      </header>
+      <SiteHeader />
 
       <main className="pt-28 sm:pt-36">
         <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
