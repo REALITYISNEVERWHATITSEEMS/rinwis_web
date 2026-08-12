@@ -19,6 +19,7 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   const images = projectImages(project);
+  const [hero, ...rest] = images;
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
 
@@ -27,36 +28,49 @@ export default async function ProjectPage({
       <SiteHeader />
 
       <main className="pt-28 sm:pt-36">
-        <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
-          <p className="text-xs text-white/40">
-            {project.category} — {project.year}
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
-            {project.title}
-          </h1>
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 pb-16 sm:grid-cols-2 sm:gap-16 sm:px-8">
+          <div>
+            <p className="text-xs text-white/40">
+              {project.category} — {project.year}
+            </p>
+            <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
+              {project.title}
+            </h1>
 
-          <div className="mt-10 space-y-4 text-sm leading-relaxed text-white/70 sm:text-base">
-            {project.description.map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))}
+            <div className="mt-10 space-y-4 text-sm leading-relaxed text-white/70 sm:text-base">
+              {project.description.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </div>
+
+            <dl className="mt-10 grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-2">
+              {project.credits.map((credit) => (
+                <div key={credit.label}>
+                  <dt className="text-xs uppercase tracking-wide text-white/40">
+                    {credit.label}
+                  </dt>
+                  <dd className="mt-1 text-sm text-white/80">{credit.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          <dl className="mt-10 grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-2">
-            {project.credits.map((credit) => (
-              <div key={credit.label}>
-                <dt className="text-xs uppercase tracking-wide text-white/40">
-                  {credit.label}
-                </dt>
-                <dd className="mt-1 text-sm text-white/80">{credit.value}</dd>
-              </div>
-            ))}
-          </dl>
+          {hero && (
+            <Image
+              src={hero.src}
+              alt={project.title}
+              width={hero.width}
+              height={hero.height}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              className="block h-auto w-full self-start"
+            />
+          )}
         </div>
 
-        {images.length > 1 ? (
+        {rest.length > 1 ? (
           <>
             <div className="flex gap-0.5 px-0.5 sm:hidden">
-              {distributeMasonry(images, 2).map((column, i) => (
+              {distributeMasonry(rest, 2).map((column, i) => (
                 <div key={i} className="flex flex-1 flex-col gap-0.5">
                   {column.map((img) => (
                     <Image
@@ -73,7 +87,7 @@ export default async function ProjectPage({
               ))}
             </div>
             <div className="hidden gap-0.5 px-0.5 sm:flex">
-              {distributeMasonry(images, 4).map((column, i) => (
+              {distributeMasonry(rest, 4).map((column, i) => (
                 <div key={i} className="flex flex-1 flex-col gap-0.5">
                   {column.map((img) => (
                     <Image
@@ -91,7 +105,7 @@ export default async function ProjectPage({
             </div>
           </>
         ) : (
-          images.map((img) => (
+          rest.map((img) => (
             <Image
               key={img.src}
               src={img.src}
