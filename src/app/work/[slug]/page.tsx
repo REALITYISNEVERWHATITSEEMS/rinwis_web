@@ -54,23 +54,42 @@ export default async function ProjectPage({
         </div>
 
         {images.length > 1 ? (
-          <div className="flex gap-0.5 px-0.5">
-            {distributeMasonry(images, 2).map((column, i) => (
-              <div key={i} className="flex flex-1 flex-col gap-0.5">
-                {column.map((img) => (
-                  <Image
-                    key={img.src}
-                    src={img.src}
-                    alt={project.title}
-                    width={img.width}
-                    height={img.height}
-                    sizes="(max-width: 640px) 50vw, 50vw"
-                    className="block h-auto w-full"
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+          <>
+            <div className="flex gap-0.5 px-0.5 sm:hidden">
+              {distributeMasonry(images, 2).map((column, i) => (
+                <div key={i} className="flex flex-1 flex-col gap-0.5">
+                  {column.map((img) => (
+                    <Image
+                      key={img.src}
+                      src={img.src}
+                      alt={project.title}
+                      width={img.width}
+                      height={img.height}
+                      sizes="50vw"
+                      className="block h-auto w-full"
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="hidden gap-0.5 px-0.5 sm:flex">
+              {distributeMasonry(images, 4).map((column, i) => (
+                <div key={i} className="flex flex-1 flex-col gap-0.5">
+                  {column.map((img) => (
+                    <Image
+                      key={img.src}
+                      src={img.src}
+                      alt={project.title}
+                      width={img.width}
+                      height={img.height}
+                      sizes="25vw"
+                      className="block h-auto w-full"
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
           images.map((img) => (
             <Image
