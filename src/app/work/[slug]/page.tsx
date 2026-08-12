@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projectImages, projects } from "@/lib/projects";
-import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 
 export function generateStaticParams() {
@@ -27,9 +26,9 @@ export default async function ProjectPage({
     <div className="min-h-screen bg-black text-white">
       <SiteHeader />
 
-      <main className="pt-28 sm:pt-36">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 pb-16 sm:grid-cols-2 sm:gap-16 sm:px-8">
-          <div>
+      <main className="pt-16 sm:pt-24">
+        <div className="grid grid-cols-1 sm:h-[calc(100vh-6rem)] sm:grid-cols-2">
+          <div className="overflow-y-auto px-5 py-10 sm:px-10 sm:py-14">
             <p className="text-xs text-white/40">
               {project.category} — {project.year}
             </p>
@@ -56,66 +55,33 @@ export default async function ProjectPage({
           </div>
 
           {hero && (
-            <Image
-              src={hero.src}
-              alt={project.title}
-              width={hero.width}
-              height={hero.height}
-              sizes="(max-width: 640px) 100vw, 50vw"
-              className="block h-auto w-full self-start"
-            />
+            <div className="relative h-[70vw] sm:h-full">
+              <Image
+                src={hero.src}
+                alt={project.title}
+                fill
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            </div>
           )}
         </div>
 
-        {rest.length > 1 ? (
-          <>
-            <div className="flex gap-0.5 px-0.5 sm:hidden">
-              {distributeMasonry(rest, 2).map((column, i) => (
-                <div key={i} className="flex flex-1 flex-col gap-0.5">
-                  {column.map((img) => (
-                    <Image
-                      key={img.src}
-                      src={img.src}
-                      alt={project.title}
-                      width={img.width}
-                      height={img.height}
-                      sizes="50vw"
-                      className="block h-auto w-full"
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-            <div className="hidden gap-0.5 px-0.5 sm:flex">
-              {distributeMasonry(rest, 4).map((column, i) => (
-                <div key={i} className="flex flex-1 flex-col gap-0.5">
-                  {column.map((img) => (
-                    <Image
-                      key={img.src}
-                      src={img.src}
-                      alt={project.title}
-                      width={img.width}
-                      height={img.height}
-                      sizes="25vw"
-                      className="block h-auto w-full"
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          rest.map((img) => (
-            <Image
-              key={img.src}
-              src={img.src}
-              alt={project.title}
-              width={img.width}
-              height={img.height}
-              sizes="100vw"
-              className="block h-auto w-full"
-            />
-          ))
+        {rest.length > 0 && (
+          <div className="grid grid-cols-2 gap-0.5 px-0.5 pt-0.5">
+            {rest.map((img) => (
+              <div key={img.src} className="relative aspect-[4/5]">
+                <Image
+                  src={img.src}
+                  alt={project.title}
+                  fill
+                  sizes="50vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
         )}
 
         <Link
