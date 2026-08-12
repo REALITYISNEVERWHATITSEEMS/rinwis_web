@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import { projectImages, projects } from "@/lib/projects";
+import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 
 type FeedImage = {
@@ -15,20 +16,6 @@ type FeedImage = {
   title: string;
   category: string;
 };
-
-function distributeMasonry(items: FeedImage[], columnCount: number): FeedImage[][] {
-  const columns: FeedImage[][] = Array.from({ length: columnCount }, () => []);
-  const heights = new Array(columnCount).fill(0);
-  for (const item of items) {
-    let shortest = 0;
-    for (let i = 1; i < columnCount; i++) {
-      if (heights[i] < heights[shortest]) shortest = i;
-    }
-    columns[shortest].push(item);
-    heights[shortest] += item.height / item.width;
-  }
-  return columns;
-}
 
 function MasonryColumns({ columns }: { columns: FeedImage[][] }) {
   return (
