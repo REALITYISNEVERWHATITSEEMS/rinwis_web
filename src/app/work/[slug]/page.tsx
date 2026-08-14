@@ -78,10 +78,10 @@ export default async function ProjectPage({
 
         {images.length > 0 && (
           <div className="grid grid-cols-2 gap-0.5 px-0.5 pt-0.5">
-            {images.map((img) => (
-              <div key={img.src} className="relative aspect-[4/5]">
+            {images.map((src) => (
+              <div key={src} className="relative aspect-[4/5]">
                 <Image
-                  src={img.src}
+                  src={src}
                   alt={project.title}
                   fill
                   sizes="50vw"

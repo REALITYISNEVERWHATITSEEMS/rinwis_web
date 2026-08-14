@@ -54,32 +54,15 @@ function MasonryColumns({ columns }: { columns: FeedImage[][] }) {
 export default function Home() {
   const feed = useMemo<FeedImage[]>(
     () =>
-      projects.flatMap((project) => {
-        const items: FeedImage[] = [];
-        if (project.hero.kind === "image") {
-          items.push({
-            key: `${project.slug}-hero`,
-            src: project.hero.src,
-            width: project.hero.width,
-            height: project.hero.height,
-            slug: project.slug,
-            title: project.title,
-            category: project.category,
-          });
-        }
-        project.images.forEach((image, i) => {
-          items.push({
-            key: `${project.slug}-${i}`,
-            src: image.src,
-            width: image.width,
-            height: image.height,
-            slug: project.slug,
-            title: project.title,
-            category: project.category,
-          });
-        });
-        return items;
-      }),
+      projects.map((project) => ({
+        key: project.slug,
+        src: project.cover.src,
+        width: project.cover.width,
+        height: project.cover.height,
+        slug: project.slug,
+        title: project.title,
+        category: project.category,
+      })),
     [],
   );
 
