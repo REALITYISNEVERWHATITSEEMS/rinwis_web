@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProject, projectImages, projects } from "@/lib/projects";
+import { getProject, projects } from "@/lib/projects";
 import SiteHeader from "@/components/SiteHeader";
 
 export function generateStaticParams() {
@@ -17,8 +17,7 @@ export default async function ProjectPage({
   const project = getProject(slug);
   if (!project) notFound();
 
-  const images = projectImages(project);
-  const [hero, ...rest] = images;
+  const { hero, images } = project;
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
 
@@ -54,8 +53,17 @@ export default async function ProjectPage({
             </dl>
           </div>
 
-          {hero && (
-            <div className="relative h-[70vw] sm:h-full">
+          <div className="relative h-[70vw] sm:h-full">
+            {hero.kind === "video" ? (
+              <video
+                src={hero.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : (
               <Image
                 src={hero.src}
                 alt={project.title}
@@ -64,13 +72,13 @@ export default async function ProjectPage({
                 className="object-cover"
                 priority
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        {rest.length > 0 && (
+        {images.length > 0 && (
           <div className="grid grid-cols-2 gap-0.5 px-0.5 pt-0.5">
-            {rest.map((img) => (
+            {images.map((img) => (
               <div key={img.src} className="relative aspect-[4/5]">
                 <Image
                   src={img.src}

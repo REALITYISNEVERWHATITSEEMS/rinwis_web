@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
-import { projectImages, projects } from "@/lib/projects";
+import { projects } from "@/lib/projects";
 import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 
@@ -54,17 +54,32 @@ function MasonryColumns({ columns }: { columns: FeedImage[][] }) {
 export default function Home() {
   const feed = useMemo<FeedImage[]>(
     () =>
-      projects.flatMap((project) =>
-        projectImages(project).map((img, i) => ({
-          key: `${project.slug}-${i}`,
-          src: img.src,
-          width: img.width,
-          height: img.height,
-          slug: project.slug,
-          title: project.title,
-          category: project.category,
-        })),
-      ),
+      projects.flatMap((project) => {
+        const items: FeedImage[] = [];
+        if (project.hero.kind === "image") {
+          items.push({
+            key: `${project.slug}-hero`,
+            src: project.hero.src,
+            width: project.hero.width,
+            height: project.hero.height,
+            slug: project.slug,
+            title: project.title,
+            category: project.category,
+          });
+        }
+        project.images.forEach((image, i) => {
+          items.push({
+            key: `${project.slug}-${i}`,
+            src: image.src,
+            width: image.width,
+            height: image.height,
+            slug: project.slug,
+            title: project.title,
+            category: project.category,
+          });
+        });
+        return items;
+      }),
     [],
   );
 
