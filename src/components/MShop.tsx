@@ -99,15 +99,23 @@ function BagIcon() {
 export default function MShop() {
   return (
     <div className="min-h-screen scroll-smooth bg-white text-black">
-      <nav className="sticky top-0 z-40 grid grid-cols-3 items-center border-b border-black/10 bg-white px-5 py-4 sm:px-8">
-        <div className="flex items-center gap-5 justify-self-start text-black/80">
+      <nav className="fixed inset-x-0 top-0 z-50 mix-blend-difference grid grid-cols-3 items-center px-5 py-4 text-white sm:px-8">
+        <div className="flex items-center gap-5 justify-self-start">
           <MenuIcon />
           <SearchIcon />
         </div>
-        <Link href="/" className="justify-self-center text-lg font-bold tracking-tight">
-          M™
+        <Link href="/" className="justify-self-center">
+          <Image
+            src="/work/m-simulacre/logo.png"
+            alt="M"
+            width={512}
+            height={512}
+            className="h-10 w-10 sm:h-12 sm:w-12"
+            style={{ filter: "invert(1)" }}
+            priority
+          />
         </Link>
-        <div className="flex items-center gap-5 justify-self-end text-black/80">
+        <div className="flex items-center gap-5 justify-self-end">
           <PersonIcon />
           <div className="flex items-center gap-1">
             <BagIcon />
@@ -298,14 +306,6 @@ export default function MShop() {
             width={1616}
             height={2020}
             sizes="(max-width: 640px) 100vw, 50vw"
-            className="block h-auto w-full"
-          />
-          <video
-            src="/work/m-simulacre/shop-sim.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
             className="block h-auto w-full"
           />
         </div>
