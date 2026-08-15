@@ -6,6 +6,7 @@ import { getImageDims } from "@/lib/image-dims";
 import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 import ProjectGallery from "@/components/ProjectGallery";
+import SensoraShop from "@/components/SensoraShop";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -19,6 +20,10 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
+
+  if (slug === "sensora") {
+    return <SensoraShop />;
+  }
 
   const { hero, images } = project;
   const index = projects.findIndex((p) => p.slug === slug);
