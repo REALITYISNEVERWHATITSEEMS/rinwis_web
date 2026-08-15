@@ -21,7 +21,7 @@ function MasonryColumns({ columns }: { columns: FeedImage[][] }) {
   return (
     <>
       {columns.map((column, i) => (
-        <div key={i} className="flex flex-1 flex-col gap-0.5">
+        <div key={i} className="flex flex-1 flex-col gap-1">
           {column.map((img) => (
             <Link
               key={img.key}
@@ -73,10 +73,10 @@ export default function Home() {
     <div className="relative min-h-screen bg-black text-white">
       <SiteHeader />
 
-      <main className="flex gap-0.5 px-0.5 pt-0.5 sm:hidden">
+      <main className="flex gap-1 px-1 pt-1 sm:hidden">
         <MasonryColumns columns={columns2} />
       </main>
-      <main className="hidden gap-0.5 px-0.5 pt-0.5 sm:flex">
+      <main className="hidden gap-1 px-1 pt-1 sm:flex">
         <MasonryColumns columns={columns4} />
       </main>
     </div>

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/lib/projects";
+import { getImageDims } from "@/lib/image-dims";
+import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 
 export function generateStaticParams() {
@@ -21,39 +23,16 @@ export default async function ProjectPage({
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
 
+  const galleryItems = images.map((src) => ({ src, ...getImageDims(src) }));
+  const galleryColumns = distributeMasonry(galleryItems, 2);
+
   return (
     <div className="min-h-screen bg-black text-white">
       <SiteHeader />
 
       <main className="pt-16 sm:pt-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 sm:items-start">
-          <div className="px-5 py-10 sm:px-10 sm:py-14">
-            <p className="text-xs text-white/40">
-              {project.category} — {project.year}
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
-              {project.title}
-            </h1>
-
-            <div className="mt-10 space-y-4 text-sm leading-relaxed text-white/70 sm:text-base">
-              {project.description.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
-
-            <dl className="mt-10 grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-2">
-              {project.credits.map((credit) => (
-                <div key={credit.label}>
-                  <dt className="text-xs uppercase tracking-wide text-white/40">
-                    {credit.label}
-                  </dt>
-                  <dd className="mt-1 text-sm text-white/80">{credit.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="sm:pt-14">
+        <div className="grid grid-cols-1 gap-8 px-3 pb-12 sm:grid-cols-2 sm:gap-6 sm:px-6">
+          <div>
             {hero.kind === "video" ? (
               <video
                 src={hero.src}
@@ -74,24 +53,51 @@ export default async function ProjectPage({
                 priority
               />
             )}
-          </div>
-        </div>
 
-        {images.length > 0 && (
-          <div className="grid grid-cols-2 gap-0.5 px-0.5 pt-0.5 sm:grid-cols-4">
-            {images.map((src) => (
-              <div key={src} className="relative aspect-[4/5]">
-                <Image
-                  src={src}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 640px) 50vw, 25vw"
-                  className="object-cover"
-                />
+            <div className="mt-6">
+              <p className="text-xs text-white/40">
+                {project.category} — {project.year}
+              </p>
+              <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
+                {project.title}
+              </h1>
+              <div className="mt-4 max-w-md space-y-3 text-sm italic leading-relaxed text-white/60">
+                {project.description.map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
+
+              <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-2">
+                {project.credits.map((credit) => (
+                  <div key={credit.label}>
+                    <dt className="text-xs uppercase tracking-wide text-white/40">
+                      {credit.label}
+                    </dt>
+                    <dd className="mt-1 text-sm text-white/80">{credit.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+
+          <div className="flex gap-1">
+            {galleryColumns.map((column, i) => (
+              <div key={i} className="flex flex-1 flex-col gap-1">
+                {column.map((img) => (
+                  <Image
+                    key={img.src}
+                    src={img.src}
+                    alt={project.title}
+                    width={img.width}
+                    height={img.height}
+                    sizes="25vw"
+                    className="block h-auto w-full"
+                  />
+                ))}
               </div>
             ))}
           </div>
-        )}
+        </div>
 
         <Link
           href={`/work/${next.slug}`}
@@ -103,6 +109,13 @@ export default async function ProjectPage({
           </span>
         </Link>
       </main>
+
+      <footer className="fixed inset-x-0 bottom-0 z-40 mix-blend-difference flex items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
+        <span className="text-xs font-semibold tracking-widest text-white">{project.title}</span>
+        <span className="text-xs font-semibold tracking-widest text-white">
+          {String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+        </span>
+      </footer>
     </div>
   );
 }

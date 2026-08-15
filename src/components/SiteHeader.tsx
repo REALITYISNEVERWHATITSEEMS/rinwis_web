@@ -1,48 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
-
-function Spine({ project, index }: { project: (typeof projects)[number]; index: number }) {
-  return (
-    <Link
-      href={`/work/${project.slug}`}
-      className="group relative block h-16 w-full shrink-0 overflow-hidden rounded-[3px] border border-white/70 bg-transparent transition-[margin] duration-300 hover:my-4 sm:h-full sm:w-auto sm:flex-1 sm:hover:my-0 sm:hover:mx-4"
-    >
-      {/* mobile: horizontal row */}
-      <div className="relative grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:hidden">
-        <span className="font-mono text-[10px] text-white/60">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span className="truncate text-base font-semibold tracking-tight text-white">
-          {project.title}
-        </span>
-        <span className="shrink-0 text-right text-[10px] uppercase tracking-wide text-white/60">
-          <span className="block">{project.category}</span>
-          <span className="block text-white/40">{project.year}</span>
-        </span>
-      </div>
-
-      {/* desktop: vertical spine */}
-      <div className="hidden h-full w-full flex-col items-center justify-between py-6 sm:flex">
-        <span className="font-mono text-[10px] text-white/60">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span
-          className="max-h-[65%] truncate text-lg font-semibold tracking-tight text-white"
-          style={{ writingMode: "vertical-rl" }}
-        >
-          {project.title}
-        </span>
-        <span className="text-center text-[9px] uppercase tracking-wide text-white/60">
-          <span className="block">{project.category}</span>
-          <span className="block text-white/40">{project.year}</span>
-        </span>
-      </div>
-    </Link>
-  );
-}
 
 export default function SiteHeader() {
   const [indexOpen, setIndexOpen] = useState(false);
@@ -74,19 +35,40 @@ export default function SiteHeader() {
       </header>
 
       <div
-        className={`fixed inset-0 z-30 flex flex-col overflow-y-auto bg-black px-5 pt-24 pb-16 transition-opacity duration-300 sm:overflow-hidden sm:px-8 ${
+        className={`fixed inset-0 z-30 overflow-y-auto bg-[#f2efe9]/95 px-5 pt-24 pb-16 text-black transition-opacity duration-300 sm:px-8 ${
           indexOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={(e) => {
           if (e.target === e.currentTarget) setIndexOpen(false);
         }}
       >
-        <div
-          className="mx-auto flex w-full max-w-3xl flex-col gap-1.5 sm:h-full sm:max-w-none sm:flex-row sm:gap-1"
-          onClick={() => setIndexOpen(false)}
-        >
+        <div className="mx-auto grid w-full max-w-3xl grid-cols-[1fr_110px_1fr] sm:grid-cols-[1fr_180px_1fr]">
           {projects.map((project, i) => (
-            <Spine key={project.slug} project={project} index={i} />
+            <Link
+              key={project.slug}
+              href={`/work/${project.slug}`}
+              onClick={() => setIndexOpen(false)}
+              className="col-span-3 grid grid-cols-subgrid items-center"
+            >
+              <span className="truncate pr-4 text-right text-xs text-black/70 hover:text-black sm:text-sm">
+                {project.title}
+              </span>
+              <span
+                className="relative block w-full"
+                style={{ aspectRatio: `${project.cover.width} / ${project.cover.height}` }}
+              >
+                <Image
+                  src={project.cover.src}
+                  alt={project.title}
+                  fill
+                  sizes="180px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="truncate pl-4 text-left text-[10px] italic text-black/50 sm:text-xs">
+                {project.category} — {String(i + 1).padStart(2, "0")}
+              </span>
+            </Link>
           ))}
         </div>
       </div>
