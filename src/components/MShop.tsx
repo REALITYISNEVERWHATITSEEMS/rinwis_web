@@ -85,6 +85,15 @@ export default function MShop() {
         </div>
       </nav>
 
+      <video
+        src="/work/m-simulacre/main.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="block w-full h-auto border-b border-black/10"
+      />
+
       <section id="lamp" className="grid grid-cols-1 border-b border-black/10 sm:grid-cols-2">
         <div className="flex flex-col gap-1">
           <Image
