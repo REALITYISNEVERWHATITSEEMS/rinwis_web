@@ -26,8 +26,8 @@ export default async function ProjectPage({
       <SiteHeader />
 
       <main className="pt-16 sm:pt-24">
-        <div className="grid grid-cols-1 sm:h-[calc(100vh-6rem)] sm:grid-cols-2">
-          <div className="overflow-y-auto px-5 py-10 sm:px-10 sm:py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 sm:items-start">
+          <div className="px-5 py-10 sm:px-10 sm:py-14">
             <p className="text-xs text-white/40">
               {project.category} — {project.year}
             </p>
@@ -53,7 +53,7 @@ export default async function ProjectPage({
             </dl>
           </div>
 
-          <div className="relative h-[70vw] sm:h-full">
+          <div className="sm:pt-14">
             {hero.kind === "video" ? (
               <video
                 src={hero.src}
@@ -61,15 +61,16 @@ export default async function ProjectPage({
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 h-full w-full object-cover"
+                className="block h-auto w-full"
               />
             ) : (
               <Image
                 src={hero.src}
                 alt={project.title}
-                fill
+                width={hero.width}
+                height={hero.height}
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className="object-cover"
+                className="block h-auto w-full"
                 priority
               />
             )}
@@ -77,14 +78,14 @@ export default async function ProjectPage({
         </div>
 
         {images.length > 0 && (
-          <div className="grid grid-cols-2 gap-0.5 px-0.5 pt-0.5">
+          <div className="grid grid-cols-2 gap-0.5 px-0.5 pt-0.5 sm:grid-cols-4">
             {images.map((src) => (
               <div key={src} className="relative aspect-[4/5]">
                 <Image
                   src={src}
                   alt={project.title}
                   fill
-                  sizes="50vw"
+                  sizes="(max-width: 640px) 50vw, 25vw"
                   className="object-cover"
                 />
               </div>
