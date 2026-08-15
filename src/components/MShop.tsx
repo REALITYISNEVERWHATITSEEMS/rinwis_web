@@ -124,14 +124,27 @@ export default function MShop() {
         </div>
       </nav>
 
-      <video
-        src="/work/m-simulacre/main.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="block w-full h-auto border-b border-black/10"
-      />
+      <div className="relative border-b border-black/10">
+        <video
+          src="/work/m-simulacre/main.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="block w-full h-auto"
+        />
+        <div className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-center text-white sm:bottom-16">
+          <p className="text-xs font-semibold tracking-widest">M™ SIMULACRE</p>
+          <div className="flex gap-6 text-xs font-medium tracking-wide">
+            <a href="#lamp" className="underline decoration-white/40 underline-offset-4 hover:decoration-white">
+              상품 보기
+            </a>
+            <a href="#world" className="underline decoration-white/40 underline-offset-4 hover:decoration-white">
+              더 알아보기
+            </a>
+          </div>
+        </div>
+      </div>
 
       <section id="lamp" className="grid grid-cols-1 border-b border-black/10 sm:grid-cols-2">
         <div className="flex flex-col gap-1">
@@ -279,6 +292,46 @@ export default function MShop() {
               ))}
             </div>
           </details>
+
+          <details className="mt-4 max-w-md border-t border-black/10 pt-4 text-xs">
+            <summary className="cursor-pointer select-none font-semibold tracking-wide text-black/60">
+              더 알아보기 — process
+            </summary>
+            <div className="mt-4 grid grid-cols-2 gap-1">
+              <Image
+                src="/work/m-simulacre/process-1.jpg"
+                alt="M — paper mockup"
+                width={4032}
+                height={3024}
+                sizes="25vw"
+                className="block h-auto w-full"
+              />
+              <Image
+                src="/work/m-simulacre/process-2.jpg"
+                alt="M — machined prototype"
+                width={6000}
+                height={4000}
+                sizes="25vw"
+                className="block h-auto w-full"
+              />
+              <Image
+                src="/work/m-simulacre/process-3.jpg"
+                alt="M — lit prototype in situ"
+                width={1080}
+                height={1440}
+                sizes="25vw"
+                className="block h-auto w-full"
+              />
+              <video
+                src="/work/m-simulacre/process-1.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="block h-full w-full object-cover"
+              />
+            </div>
+          </details>
         </div>
       </section>
 
@@ -303,6 +356,30 @@ export default function MShop() {
           <Image
             src="/work/m-simulacre/shop-tire.jpg"
             alt="M™ Simulacre wheel detail"
+            width={1616}
+            height={2020}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            className="block h-auto w-full"
+          />
+          <Image
+            src="/work/m-simulacre/shop-detail-chassis.jpg"
+            alt="M™ Simulacre chassis detail"
+            width={1616}
+            height={2020}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            className="block h-auto w-full"
+          />
+          <Image
+            src="/work/m-simulacre/shop-detail-seat.jpg"
+            alt="M™ Simulacre seat detail"
+            width={1616}
+            height={2020}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            className="block h-auto w-full"
+          />
+          <Image
+            src="/work/m-simulacre/shop-detail-screw.jpg"
+            alt="M™ Simulacre fastener detail"
             width={1616}
             height={2020}
             sizes="(max-width: 640px) 100vw, 50vw"
