@@ -5,6 +5,7 @@ import { getProject, projects } from "@/lib/projects";
 import { getImageDims } from "@/lib/image-dims";
 import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
+import ProjectGallery from "@/components/ProjectGallery";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -80,23 +81,7 @@ export default async function ProjectPage({
             </div>
           </div>
 
-          <div className="flex gap-1">
-            {galleryColumns.map((column, i) => (
-              <div key={i} className="flex flex-1 flex-col gap-1">
-                {column.map((img) => (
-                  <Image
-                    key={img.src}
-                    src={img.src}
-                    alt={project.title}
-                    width={img.width}
-                    height={img.height}
-                    sizes="25vw"
-                    className="block h-auto w-full"
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+          <ProjectGallery columns={galleryColumns} flatImages={galleryItems} alt={project.title} />
         </div>
 
         <Link
