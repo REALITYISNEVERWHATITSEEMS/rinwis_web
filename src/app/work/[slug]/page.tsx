@@ -7,6 +7,7 @@ import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 import ProjectGallery from "@/components/ProjectGallery";
 import SensoraShop from "@/components/SensoraShop";
+import MShop from "@/components/MShop";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -23,6 +24,10 @@ export default async function ProjectPage({
 
   if (slug === "sensora") {
     return <SensoraShop />;
+  }
+
+  if (slug === "m-simulacre") {
+    return <MShop />;
   }
 
   const { hero, images } = project;
