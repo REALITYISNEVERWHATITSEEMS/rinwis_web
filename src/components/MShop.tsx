@@ -59,29 +59,60 @@ const RETURN_ITEMS = [
   "교환/반품 정책은 변경될 수 있습니다.",
 ];
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function MenuIcon() {
   return (
-    <a href={href} className="underline decoration-black/30 underline-offset-4 hover:decoration-black">
-      {children}
-    </a>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <line x1="3" y1="7" x2="21" y2="7" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="17" x2="21" y2="17" />
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <circle cx="11" cy="11" r="7" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  );
+}
+
+function PersonIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+    </svg>
+  );
+}
+
+function BagIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <path d="M6 8h12l-1 13H7L6 8Z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
   );
 }
 
 export default function MShop() {
   return (
     <div className="min-h-screen scroll-smooth bg-white text-black">
-      <nav className="sticky top-0 z-40 flex items-center justify-between border-b border-black/10 bg-white px-5 py-4 text-xs font-medium tracking-wide sm:px-8">
-        <Link href="/" className="text-lg font-bold tracking-tight">
+      <nav className="sticky top-0 z-40 grid grid-cols-3 items-center border-b border-black/10 bg-white px-5 py-4 sm:px-8">
+        <div className="flex items-center gap-5 justify-self-start text-black/80">
+          <MenuIcon />
+          <SearchIcon />
+        </div>
+        <Link href="/" className="justify-self-center text-lg font-bold tracking-tight">
           M™
         </Link>
-        <div className="hidden gap-8 sm:flex">
-          <NavLink href="#lamp">LAMP</NavLink>
-          <NavLink href="#world">WORLD</NavLink>
-          <NavLink href="#simulacre">SIMULACRE</NavLink>
-        </div>
-        <div className="flex gap-6 text-black/70">
-          <span>SIGN IN</span>
-          <span>CART[1]</span>
+        <div className="flex items-center gap-5 justify-self-end text-black/80">
+          <PersonIcon />
+          <div className="flex items-center gap-1">
+            <BagIcon />
+            <span className="text-xs">1</span>
+          </div>
         </div>
       </nav>
 
