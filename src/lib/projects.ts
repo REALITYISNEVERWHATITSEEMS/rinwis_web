@@ -1,6 +1,6 @@
 export type Credit = { label: string; value: string };
 
-export type Cover = { src: string; width: number; height: number };
+export type Cover = { src: string; width: number; height: number; video?: boolean };
 
 export type Hero =
   | { kind: "image"; src: string; width: number; height: number }
@@ -92,6 +92,27 @@ const rawProjects: Project[] = [
     ],
   },
   {
+    slug: "vussen",
+    title: "VUSSEN",
+    category: "Brand & Interactive",
+    year: "2025",
+    description: [
+      "VUSSEN은 '가상의 프리미엄 치약 브랜드'를 상상한 브랜딩·3D 비주얼 프로젝트다.",
+      "1995년 설립을 표방한 화이트닝 덴탈 케어 브랜드로, 화이트닝 강도에 따라 15 · 28 · 30 세 가지 라인업을 구성했다.",
+      "패키지 디자인과 3D 렌더링, 모션 비주얼을 제작해 실제 판매되는 제품처럼 보이도록 완성도를 높였다.",
+    ],
+    credits: [
+      { label: "Role", value: "Creator" },
+      { label: "Scope", value: "컨셉/BI, 패키지 디자인, 3D 모델링/렌더링, 모션 그래픽" },
+      { label: "Deliverables", value: "3D 비주얼(이미지/영상)" },
+      { label: "Tools", value: "Blender, Illustrator, Photoshop, After Effects" },
+    ],
+    color: "#1a1512",
+    cover: { src: "/work/vussen/coverimg.png", width: 2694, height: 2694 },
+    hero: { kind: "video", src: "/work/vussen/main.mp4" },
+    images: ["/work/vussen/01.png"],
+  },
+  {
     slug: "chrome-hearts",
     title: "Chrome Hearts",
     category: "3D Visual",
@@ -172,7 +193,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "3D Designer" },
     ],
     color: "#4E4B4A",
-    cover: { src: "/work/celine/coverimg.jpg", width: 1635, height: 545 },
+    cover: { src: "/work/celine/coverimg.png", width: 1593, height: 916 },
     hero: { kind: "video", src: "/work/celine/main.mp4" },
     images: ["/work/celine/01.png","/work/celine/02.png","/work/celine/03.png","/work/celine/04.png","/work/celine/05.png","/work/celine/06.png"],
   },
@@ -220,7 +241,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "3D Designer" },
     ],
     color: "#2e2e2e",
-    cover: { src: "/work/jente-promotion-banner/cover.jpg", width: 3840, height: 2160 },
+    cover: { src: "/work/jente-promotion-banner/coverimg.png", width: 2718, height: 915 },
     hero: { kind: "video", src: "/work/jente-promotion-banner/main.mp4" },
     images: [
       "/work/jente-promotion-banner/01.jpg","/work/jente-promotion-banner/02.jpg","/work/jente-promotion-banner/03.jpg",
@@ -277,7 +298,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "Photography Assistant, AD" },
     ],
     color: "#4a4a4a",
-    cover: { src: "/work/leedaearth/main.jpg", width: 1440, height: 1800 },
+    cover: { src: "/work/leedaearth/coverimg.jpg", width: 1440, height: 1800 },
     hero: { kind: "image", src: "/work/leedaearth/main.jpg", width: 1440, height: 1800 },
     images: ["/work/leedaearth/01.jpg","/work/leedaearth/02.jpg","/work/leedaearth/03.jpg","/work/leedaearth/04.jpg","/work/leedaearth/05.jpg","/work/leedaearth/06.jpg"],
   },
@@ -293,7 +314,7 @@ const rawProjects: Project[] = [
       { label: "Tools", value: "Unreal Engine 5, Blender, Illustrator, Photoshop, Premiere Pro, Substance Painter" },
     ],
     color: "#3d3d3d",
-    cover: { src: "/work/floyd/cover.jpg", width: 2048, height: 1554 },
+    cover: { src: "/work/floyd/coverimg.mp4", width: 1440, height: 1080, video: true },
     hero: { kind: "video", src: "/work/floyd/main.mp4" },
     images: ["/work/floyd/01.jpg","/work/floyd/02.jpg","/work/floyd/03.jpg","/work/floyd/04.png"],
   },

@@ -57,13 +57,24 @@ export default function SiteHeader() {
                 className="relative block w-full"
                 style={{ aspectRatio: `${project.cover.width} / ${project.cover.height}` }}
               >
-                <Image
-                  src={project.cover.src}
-                  alt={project.title}
-                  fill
-                  sizes="180px"
-                  className="object-cover"
-                />
+                {project.cover.video ? (
+                  <video
+                    src={project.cover.src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={project.cover.src}
+                    alt={project.title}
+                    fill
+                    sizes="180px"
+                    className="object-cover"
+                  />
+                )}
               </span>
               <span className="truncate pl-4 text-left text-[10px] italic text-black/50 sm:text-xs">
                 {project.category} — {String(i + 1).padStart(2, "0")}

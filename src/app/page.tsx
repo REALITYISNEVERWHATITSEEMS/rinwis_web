@@ -12,6 +12,7 @@ type FeedImage = {
   src: string;
   width: number;
   height: number;
+  video?: boolean;
   slug: string;
   title: string;
   category: string;
@@ -28,15 +29,26 @@ function MasonryColumns({ columns }: { columns: FeedImage[][] }) {
               href={`/work/${img.slug}`}
               className="group relative block w-full"
             >
-              <Image
-                src={img.src}
-                alt={img.title}
-                width={img.width}
-                height={img.height}
-                sizes="(max-width: 640px) 50vw, 25vw"
-                className="block h-auto w-full"
-                priority={false}
-              />
+              {img.video ? (
+                <video
+                  src={img.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="block h-auto w-full"
+                />
+              ) : (
+                <Image
+                  src={img.src}
+                  alt={img.title}
+                  width={img.width}
+                  height={img.height}
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="block h-auto w-full"
+                  priority={false}
+                />
+              )}
               <div className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div className="p-3 sm:p-5">
                   <p className="text-xs font-semibold sm:text-sm">{img.title}</p>
@@ -59,6 +71,7 @@ export default function Home() {
         src: project.cover.src,
         width: project.cover.width,
         height: project.cover.height,
+        video: project.cover.video,
         slug: project.slug,
         title: project.title,
         category: project.category,

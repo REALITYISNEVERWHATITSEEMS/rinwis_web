@@ -1,4 +1,8 @@
 const dims: Record<string, { width: number; height: number }> = {
+  "/work/vussen/01.png": {
+    "width": 2694,
+    "height": 2694
+  },
   "/work/3d-viewer/01.jpg": {
     "width": 3840,
     "height": 2160
