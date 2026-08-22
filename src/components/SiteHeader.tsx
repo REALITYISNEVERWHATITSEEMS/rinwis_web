@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
+import AutoplayVideo from "./AutoplayVideo";
 
 export default function SiteHeader() {
   const [indexOpen, setIndexOpen] = useState(false);
@@ -58,12 +59,8 @@ export default function SiteHeader() {
                 style={{ aspectRatio: `${project.cover.width} / ${project.cover.height}` }}
               >
                 {project.cover.video ? (
-                  <video
+                  <AutoplayVideo
                     src={project.cover.src}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 ) : (

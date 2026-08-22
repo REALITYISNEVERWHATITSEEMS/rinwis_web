@@ -110,7 +110,7 @@ const rawProjects: Project[] = [
     color: "#1a1512",
     cover: { src: "/work/vussen/coverimg.png", width: 2694, height: 2694 },
     hero: { kind: "video", src: "/work/vussen/main.mp4" },
-    images: ["/work/vussen/01.png"],
+    images: ["/work/vussen/01.png", "/work/vussen/02.mp4", "/work/vussen/03.mp4"],
   },
   {
     slug: "chrome-hearts",
@@ -329,7 +329,7 @@ const rawProjects: Project[] = [
       { label: "Role", value: "Photographer" },
     ],
     color: "#464646",
-    cover: { src: "/work/updraft/main.jpg", width: 2966, height: 4154 },
+    cover: { src: "/work/updraft/coverimg.jpg", width: 2966, height: 4154 },
     hero: { kind: "image", src: "/work/updraft/main.jpg", width: 2966, height: 4154 },
     images: [
       "/work/updraft/01.jpg","/work/updraft/02.jpg","/work/updraft/03.jpg","/work/updraft/04.jpg",
@@ -451,7 +451,7 @@ const rawProjects: Project[] = [
     description: [],
     credits: [{ label: "Role", value: "Photographer" }],
     color: "#3e3e3e",
-    cover: { src: "/work/kolon-recycle/main.jpg", width: 2481, height: 3509 },
+    cover: { src: "/work/kolon-recycle/coverimg.jpeg", width: 2481, height: 3509 },
     hero: { kind: "image", src: "/work/kolon-recycle/main.jpg", width: 2481, height: 3509 },
     images: ["/work/kolon-recycle/01.jpg","/work/kolon-recycle/02.jpg","/work/kolon-recycle/03.jpg"],
   },

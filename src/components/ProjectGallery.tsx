@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AutoplayVideo from "./AutoplayVideo";
 
 type GalleryImage = { src: string; width: number; height: number };
+
+const isVideo = (src: string) => /\.(mp4|webm|mov)$/i.test(src);
 
 export default function ProjectGallery({
   columns,
@@ -40,23 +43,27 @@ export default function ProjectGallery({
       <div className="flex gap-1">
         {columns.map((column, i) => (
           <div key={i} className="flex flex-1 flex-col gap-1">
-            {column.map((img) => (
-              <button
-                key={img.src}
-                type="button"
-                onClick={() => setOpenIndex(flatImages.findIndex((f) => f.src === img.src))}
-                className="block w-full cursor-zoom-in"
-              >
-                <Image
-                  src={img.src}
-                  alt={alt}
-                  width={img.width}
-                  height={img.height}
-                  sizes="25vw"
-                  className="block h-auto w-full"
-                />
-              </button>
-            ))}
+            {column.map((img) =>
+              isVideo(img.src) ? (
+                <AutoplayVideo key={img.src} src={img.src} className="block h-auto w-full" />
+              ) : (
+                <button
+                  key={img.src}
+                  type="button"
+                  onClick={() => setOpenIndex(flatImages.findIndex((f) => f.src === img.src))}
+                  className="block w-full cursor-zoom-in"
+                >
+                  <Image
+                    src={img.src}
+                    alt={alt}
+                    width={img.width}
+                    height={img.height}
+                    sizes="25vw"
+                    className="block h-auto w-full"
+                  />
+                </button>
+              ),
+            )}
           </div>
         ))}
       </div>

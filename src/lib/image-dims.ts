@@ -3,6 +3,14 @@ const dims: Record<string, { width: number; height: number }> = {
     "width": 2694,
     "height": 2694
   },
+  "/work/vussen/02.mp4": {
+    "width": 2160,
+    "height": 3840
+  },
+  "/work/vussen/03.mp4": {
+    "width": 2160,
+    "height": 3840
+  },
   "/work/3d-viewer/01.jpg": {
     "width": 3840,
     "height": 2160

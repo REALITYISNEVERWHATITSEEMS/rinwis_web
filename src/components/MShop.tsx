@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import AutoplayVideo from "./AutoplayVideo";
 
 const WORLD_PARAGRAPHS_EN = [
   "The spark for [M] came after I quit my job.",
@@ -125,14 +126,7 @@ export default function MShop() {
       </nav>
 
       <div className="relative border-b border-black/10">
-        <video
-          src="/work/m-simulacre/main.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="block w-full h-auto"
-        />
+        <AutoplayVideo src="/work/m-simulacre/main.mp4" className="block w-full h-auto" />
         <div className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-center text-white sm:bottom-16">
           <p className="text-xs font-semibold tracking-widest">M™ SIMULACRE</p>
           <div className="flex gap-6 text-xs font-medium tracking-wide">
@@ -322,12 +316,8 @@ export default function MShop() {
                 sizes="25vw"
                 className="block h-auto w-full"
               />
-              <video
+              <AutoplayVideo
                 src="/work/m-simulacre/process-1.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
                 className="block h-full w-full object-cover"
               />
             </div>

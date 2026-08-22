@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { projects } from "@/lib/projects";
 import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
+import AutoplayVideo from "@/components/AutoplayVideo";
 
 type FeedImage = {
   key: string;
@@ -30,14 +31,7 @@ function MasonryColumns({ columns }: { columns: FeedImage[][] }) {
               className="group relative block w-full"
             >
               {img.video ? (
-                <video
-                  src={img.src}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="block h-auto w-full"
-                />
+                <AutoplayVideo src={img.src} className="block h-auto w-full" />
               ) : (
                 <Image
                   src={img.src}

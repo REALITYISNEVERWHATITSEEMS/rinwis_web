@@ -6,6 +6,7 @@ import { getImageDims } from "@/lib/image-dims";
 import { distributeMasonry } from "@/lib/masonry";
 import SiteHeader from "@/components/SiteHeader";
 import ProjectGallery from "@/components/ProjectGallery";
+import AutoplayVideo from "@/components/AutoplayVideo";
 import SensoraShop from "@/components/SensoraShop";
 import MShop from "@/components/MShop";
 
@@ -45,14 +46,7 @@ export default async function ProjectPage({
         <div className="grid grid-cols-1 gap-8 px-3 pb-12 sm:grid-cols-2 sm:gap-6 sm:px-6">
           <div>
             {hero.kind === "video" ? (
-              <video
-                src={hero.src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="block h-auto w-full"
-              />
+              <AutoplayVideo src={hero.src} className="block h-auto w-full" />
             ) : (
               <Image
                 src={hero.src}

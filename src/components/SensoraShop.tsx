@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import AutoplayVideo from "./AutoplayVideo";
 
 const BRAND_PARAGRAPHS = [
   "In a world where perception defines reality, SENSORA stands at the frontier of sensory innovation. We have transformed scent from a fleeting emotion into a precise instrument of power — a data stream, a weapon, a language beyond words.",
@@ -223,14 +224,7 @@ export default function SensoraShop() {
             sizes="(max-width: 640px) 100vw, 50vw"
             className="block h-auto w-full"
           />
-          <video
-            src="/work/sensora/shop-tech-demo.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="block h-auto w-full"
-          />
+          <AutoplayVideo src="/work/sensora/shop-tech-demo.mp4" className="block h-auto w-full" />
         </div>
 
         <div className="self-start px-6 py-16 sm:sticky sm:top-16 sm:px-16">
